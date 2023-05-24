@@ -12,7 +12,7 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private Integer money;
+    private Double money;
 
     public User() {}
     public User(Long id, String username, String password, String email) {
@@ -54,11 +54,11 @@ public class User {
         this.email = email;
     }
 
-    public Integer getMoney() {
+    public Double getMoney() {
         return money;
     }
 
-    public void setMoney(Integer money) {
+    public void setMoney(Double money) {
         this.money = money;
     }
 }
