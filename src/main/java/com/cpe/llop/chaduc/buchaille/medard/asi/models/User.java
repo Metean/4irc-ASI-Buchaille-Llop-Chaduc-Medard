@@ -15,8 +15,7 @@ public class User {
     private Double money;
 
     public User() {}
-    public User(Long id, String username, String password, String email) {
-        this.id = id;
+    public User(String username, String password, String email) {
         this.username = username;
         this.password=password;
         this.email=email;

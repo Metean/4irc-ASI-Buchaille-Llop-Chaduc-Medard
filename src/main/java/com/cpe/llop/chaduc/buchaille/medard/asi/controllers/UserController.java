@@ -5,11 +5,15 @@ import com.cpe.llop.chaduc.buchaille.medard.asi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
     private UserService userService;
+
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -19,12 +23,14 @@ public class UserController {
     public User/*UserSummaryResponse*/ getUserSummary(@RequestParam("userId") Long userId) {
         // Implement getUserSummary logic using the userService
         // Return the user summary response
-        return this.userService.getUserSummary(userId);
+        User ret = this.userService.getUserSummary(userId);
+        log.info(ret.toString());
+        return ret;
     }
 
     @PostMapping("/add")
     public void addUser(/*@RequestBody AddUserRequest addUserRequest*/) {
-        // Implement addUser logic using the userService
+        this.userService.addUser();
     }
 
     @PostMapping("/money")

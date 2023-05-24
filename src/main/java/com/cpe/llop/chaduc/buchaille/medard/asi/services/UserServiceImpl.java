@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
 
     public void addUser(/*@RequestBody AddUserRequest addUserRequest*/) {
-
+        userRepository.save(new User("test","totopassword","mail@mail.fr"));
     }
 
     public void setUserMoney(/*@RequestBody SetUserMoneyRequest setUserMoneyRequest*/) {
