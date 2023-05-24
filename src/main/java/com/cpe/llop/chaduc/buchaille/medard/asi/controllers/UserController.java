@@ -1,5 +1,6 @@
 package com.cpe.llop.chaduc.buchaille.medard.asi.controllers;
 
+import com.cpe.llop.chaduc.buchaille.medard.asi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -7,12 +8,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController {
 
-    //private UserService userService;
+    private UserService userService;
 
-    //@Autowired
-    //public UserController(UserService userService) {
-    //    this.userService = userService;
-    //}
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/summary")
     public void/*UserSummaryResponse*/ getUserSummary(@RequestParam("userId") String userId) {
