@@ -1,4 +1,4 @@
-package com.cpe.llop.chaduc.buchaille.medard.asi.repositories.Entity;
+package com.cpe.llop.chaduc.buchaille.medard.asi.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
