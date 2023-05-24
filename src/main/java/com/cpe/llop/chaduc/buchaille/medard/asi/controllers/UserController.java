@@ -1,5 +1,6 @@
 package com.cpe.llop.chaduc.buchaille.medard.asi.controllers;
 
+import com.cpe.llop.chaduc.buchaille.medard.asi.models.User;
 import com.cpe.llop.chaduc.buchaille.medard.asi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +16,10 @@ public class UserController {
     }
 
     @GetMapping("/summary")
-    public void/*UserSummaryResponse*/ getUserSummary(@RequestParam("userId") String userId) {
+    public User/*UserSummaryResponse*/ getUserSummary(@RequestParam("userId") Long userId) {
         // Implement getUserSummary logic using the userService
         // Return the user summary response
+        return this.userService.getUserSummary(userId);
     }
 
     @PostMapping("/add")

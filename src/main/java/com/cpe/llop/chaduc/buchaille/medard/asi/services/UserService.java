@@ -1,10 +1,11 @@
 package com.cpe.llop.chaduc.buchaille.medard.asi.services;
 
+import com.cpe.llop.chaduc.buchaille.medard.asi.models.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 public interface UserService {
-    public void /*UserSummaryResponse*/ getUserSummary(@RequestParam("userId") String userId);
+    public User getUserSummary(@RequestParam("userId") Long userId);
 
     public void addUser(/*@RequestBody AddUserRequest addUserRequest*/);
 
