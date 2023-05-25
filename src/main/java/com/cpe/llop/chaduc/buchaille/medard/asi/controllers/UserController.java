@@ -2,11 +2,10 @@ package com.cpe.llop.chaduc.buchaille.medard.asi.controllers;
 
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.User;
 import com.cpe.llop.chaduc.buchaille.medard.asi.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -23,19 +22,21 @@ public class UserController {
     public User/*UserSummaryResponse*/ getUserSummary(@RequestParam("userId") Long userId) {
         // Implement getUserSummary logic using the userService
         // Return the user summary response
-        User ret = this.userService.getUserSummary(userId);
-        log.info(ret.toString());
-        return ret;
+        return this.userService.getUserSummary(userId);
     }
 
     @PostMapping("/add")
-    public void addUser(/*@RequestBody AddUserRequest addUserRequest*/) {
-        this.userService.addUser();
+    public User addUser(@RequestParam("username") String username,
+                        @RequestParam("password") String password,
+                        @RequestParam("email") String email) {
+
+        return this.userService.addUser(username, password, email);
     }
 
     @PostMapping("/money")
-    public void setUserMoney(/*@RequestBody SetUserMoneyRequest setUserMoneyRequest*/) {
-        // Implement setUserMoney logic using the userService
+    public User setUserMoney(@RequestParam("userId") long userId, @RequestParam("money") Integer userMoney) {
+        return this.userService.setUserMoney(userId, userMoney);
+
     }
 
     @PostMapping("/card/add")

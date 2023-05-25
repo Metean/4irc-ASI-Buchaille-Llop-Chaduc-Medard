@@ -3,7 +3,6 @@ package com.cpe.llop.chaduc.buchaille.medard.asi.services;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.User;
 import com.cpe.llop.chaduc.buchaille.medard.asi.repositories.UserRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -15,24 +14,31 @@ public class UserServiceImpl implements UserService {
 
     //TODO: report the logic from the user controller here, (with the connection to the database)
     @Override
-    public User getUserSummary(@RequestParam("userId") Long userId) {
+    public User getUserSummary(Long userId) {
         return userRepository.getReferenceById(userId);
     }
 
 
-    public void addUser(/*@RequestBody AddUserRequest addUserRequest*/) {
-        userRepository.save(new User("test","totopassword","mail@mail.fr"));
+    public User addUser(String username, String password, String email) {
+        User user = new User(username, password, email);
+        userRepository.save(user);
+        return user;
     }
 
-    public void setUserMoney(/*@RequestBody SetUserMoneyRequest setUserMoneyRequest*/) {
-
+    @Override
+    public User setUserMoney(long userId, Integer userMoney) {
+        User user = userRepository.getReferenceById(userId);
+        userRepository.save(user);
+        return user;
     }
 
     public void addUserCard(/*@RequestBody AddUserCardRequest addUserCardRequest*/) {
 
     }
 
-    public void removeUserCard(/*@RequestBody RemoveUserCardRequest removeUserCardRequest*/) {
-
+    public User removeUserCard(Long userId) {
+        User user = userRepository.getReferenceById(userId);
+        userRepository.delete(user);
+        return user;
     }
 }
