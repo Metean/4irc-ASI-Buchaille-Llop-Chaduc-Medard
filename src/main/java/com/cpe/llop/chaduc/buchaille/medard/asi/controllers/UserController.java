@@ -37,7 +37,7 @@ public class UserController {
     public String registerView(@NotNull Model model) {
         UserFormDTO userForm = new UserFormDTO();
         model.addAttribute("userForm", userForm);
-        return "userForm";
+        return "userRegisterForm";
     }
 
     @PostMapping("/register")
