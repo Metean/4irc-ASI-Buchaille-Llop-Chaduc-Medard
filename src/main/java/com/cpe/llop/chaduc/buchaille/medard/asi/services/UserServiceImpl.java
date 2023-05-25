@@ -1,8 +1,10 @@
 package com.cpe.llop.chaduc.buchaille.medard.asi.services;
 
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.User;
+import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.UserFormDTO;
 import com.cpe.llop.chaduc.buchaille.medard.asi.repositories.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
@@ -20,8 +22,9 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public void addUser(/*@RequestBody AddUserRequest addUserRequest*/) {
-        userRepository.save(new User("test","totopassword","mail@mail.fr"));
+    public void addUser(@RequestBody UserFormDTO userForm) {
+        User u = new User(userForm.getUsername(), userForm.getPassword(), userForm.getEmail());
+        userRepository.save(u);
     }
 
     public void setUserMoney(/*@RequestBody SetUserMoneyRequest setUserMoneyRequest*/) {
