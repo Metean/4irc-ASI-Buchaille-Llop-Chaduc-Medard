@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.CardFormDTO;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Controller
 public class CardController {
 
@@ -26,7 +30,12 @@ public class CardController {
     // Afficher form
     @RequestMapping(value = { "/addCard"}, method = RequestMethod.GET)
     public String addcard(Model model) {
+        List<String> allTypes = Arrays.asList("Acier", "Combat", "Dragon", "Eau", "Electrik", "Fée", "Feu",
+                                "Glace", "Insecte", "Normal", "Plante", "Poison", "Psy", "Roche",
+                                "Sol", "Spectre", "Ténèbres", "Vol");
         CardFormDTO cardForm = new CardFormDTO();
+
+        model.addAttribute("allTypes", allTypes);
         model.addAttribute("cardForm", cardForm);
         return "cardForm";
     }
@@ -35,15 +44,14 @@ public class CardController {
     @RequestMapping(value = { "/addCard"}, method = RequestMethod.POST)
     public String addcard(Model model, @ModelAttribute("cardForm") CardFormDTO cardForm) {
         Card c = cardDAO.addCard(
-                cardForm.getId(),
+                0, // TODO: Id à définir !
                 cardForm.getPrice(),
                 cardForm.getName(),
                 cardForm.getDescription(),
                 cardForm.getImgUrl(),
-                cardForm.getFamily(),
-                cardForm.getAffinity(),
+                cardForm.getType1(),
+                cardForm.getType2(),
                 cardForm.getHp(),
-                cardForm.getEnergy(),
                 cardForm.getAttack(),
                 cardForm.getDefense()
         );

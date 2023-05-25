@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>CARDS</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" data-th-href="@{/css/style.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/formStyle.css" data-th-href="@{/css/formStyle.css}" />
 </head>
 
 <body>
@@ -11,7 +12,7 @@
     <fieldset>
         <legend>Formulaire d'ajout de carte</legend>
 
-        <div>
+        <div class="form__line">
             <label for="form-name">Name</label>
             <div>
                 <input
@@ -23,7 +24,7 @@
             </div>
         </div>
 
-        <div>
+        <div class="form__line">
             <label for="form-description">Description</label>
             <div>
                 <input
@@ -33,7 +34,9 @@
                         th:field="*{description}"
                 />
             </div>
+        </div>
 
+        <div class="form__line">
             <label for="form-imgUrl">Image URL</label>
             <div>
                 <input
@@ -43,43 +46,38 @@
                         th:field="*{imgUrl}"
                 />
             </div>
+        </div>
 
-            <label for="form-family">Famille</label>
+        <div class="form__line">
+            <label for="form-type1">Type 1</label>
             <div>
-                <select id="form-family" th:field="*{family}">
-                    <option th:each="famType : ${allFamilies}"
-                            th:value="${famType}"
-                            th:text="#{${'Famille : ' + famType}}">O</option>
+                <select id="form-type1" th:field="*{type1}">
+                    <option th:each="t : ${allTypes}" th:value="${t}" th:text="${t}"></option>
                 </select>
             </div>
+        </div>
 
-            <label for="form-affinity">Affinité</label>
+        <div class="form__line">
+            <label for="form-type2">Type 2</label>
             <div>
-                <select id="form-affinity" th:field="*{affinity}">
-                    <option th:each="affType : ${allAffinities}"
-                            th:value="${affType}"
-                            th:text="#{${'Affinité : ' + affType}}">O</option>
+                <select id="form-type2" th:field="*{type2}">
+                    <option th:each="t : ${allTypes}" th:value="${t}" th:text="${t}"></option>
                 </select>
             </div>
+        </div>
 
+        <div class="form__line">
             <label for="form-hp">HP</label>
             <div>
                 <input
                         id="form-hp"
-                        type="number"
                         th:field="*{hp}"
-                />
-            </div>
-
-            <label for="form-energy">Energie</label>
-            <div>
-                <input
-                        id="form-energy"
                         type="number"
-                        th:field="*{energy}"
                 />
             </div>
+        </div>
 
+        <div class="form__line">
             <label for="form-attack">Attaque</label>
             <div>
                 <input
@@ -88,7 +86,9 @@
                         th:field="*{attack}"
                 />
             </div>
+        </div>
 
+        <div class="form__line">
             <label for="form-defense">Défense</label>
             <div>
                 <input
@@ -99,13 +99,14 @@
             </div>
         </div>
 
-        <div>
+        <div class="form__button">
             <input
                     type="submit"
                     class="uk-button uk-button-default"
                     value="Create"
             />
         </div>
+
     </fieldset>
 </form>
 </body>
