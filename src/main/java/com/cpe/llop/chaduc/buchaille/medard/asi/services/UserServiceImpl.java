@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
 
     //TODO: report the logic from the user controller here, (with the connection to the database)
     @Override
-    public User getUserSummary(@RequestParam("userId") Long userId) {
+    public User getUser(@RequestParam("userId") Long userId) {
         return userRepository.getReferenceById(userId);
     }
 
