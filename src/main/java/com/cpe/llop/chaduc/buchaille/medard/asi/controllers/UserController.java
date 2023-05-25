@@ -27,7 +27,7 @@ public class UserController {
     public String getUser(@NotNull Model model, @PathVariable("id") Long id) {
         User ret = this.userService.getUser(id);
         if(ret == null) {
-            return "redirect:/";
+            return "redirect:/user/login";
         }
         model.addAttribute("user", ret);
         return "userView";
@@ -64,7 +64,7 @@ public class UserController {
     public String userMoneyView(@NotNull Model model, @PathVariable("id") Long id) {
         User u = this.userService.getUser(id);
         if(u == null) {
-            return "redirect:/";
+            return "redirect:/user/login";
         }
         UserMoneyFormDTO userMoneyForm = new UserMoneyFormDTO();
         model.addAttribute("user", u);
@@ -76,7 +76,7 @@ public class UserController {
     public String userMoneyView(@NotNull Model model, @PathVariable("id") Long id, UserMoneyFormDTO userMoneyForm) {
         User u = this.userService.getUser(id);
         if(u == null) {
-            return "redirect:/";
+            return "redirect:/user/login";
         }
         userMoneyForm.setMoney(userMoneyForm.getMoney() + u.getMoney());
         userMoneyForm.setUserId(u.getId());
