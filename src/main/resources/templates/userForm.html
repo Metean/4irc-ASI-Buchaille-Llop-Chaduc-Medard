@@ -5,18 +5,29 @@
     <title>Register</title>
 </head>
 <body>
-    <form th:action="@{/user/register}"
-          th:object="${userForm}" method="POST">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="Your name.." th:field="*{name}">
+<form th:action="@{/user/register}"
+      th:object="${userForm}" method="POST">
+    <fieldset>
+        <legend>S'inscrire</legend>
+        <label for="name">Nom d'utilisateur</label>
+        <div>
+        <input type="text" id="name" name="name" placeholder="Your name.." th:field="*{username}">
+        </div>
 
         <label for="email">Email</label>
-        <input type="text" id="email" name="email" placeholder="Your email.." th:field="*{email}">
+        <div>
+            <input type="text" id="email" name="email" placeholder="Your email.." th:field="*{email}">
+        </div>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Your password.." th:field="*{password}">
+        <label for="password">Mot de passe</label>
+        <div>
+            <input type="password" id="password" name="password" placeholder="Your password.." th:field="*{password}">
+        </div>
 
-        <input type="submit" value="Submit">
-    </form>
+        <input type="submit"
+               class="uk-button uk-button-default"
+               value="Submit">
+    </fieldset>
+</form>
 </body>
 </html>
