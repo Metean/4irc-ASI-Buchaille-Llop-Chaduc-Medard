@@ -1,5 +1,6 @@
 package com.cpe.llop.chaduc.buchaille.medard.asi.models.dto;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,15 +11,11 @@ public class CardFormDTO {
     private String name;
     private String description;
     private String imgUrl;
-    private String family;
-    private String affinity;
+    private String type1;
+    private String type2;
     private int hp;
-    private int energy;
     private int attack;
     private int defense;
-
-    public List<String> allFamilies;
-    public List<String> allAffinities;
 
     public CardFormDTO() {
         this.id = 0;
@@ -26,31 +23,24 @@ public class CardFormDTO {
         this.name = "";
         this.description = "";
         this.imgUrl = "";
-        this.family = "";
-        this.affinity = "";
+        this.type1 = "";
+        this.type2 = "";
         this.hp = 0;
-        this.energy = 0;
         this.attack = 0;
         this.defense = 0;
-
-        this.allFamilies = Arrays.asList("Eau", "Feu", "Electrique", "Fée");
-        this.allAffinities = Arrays.asList("Eau", "Feu", "Electrique", "Fée");
     }
-    public CardFormDTO(int id, float price, String name, String description, String imgUrl, String family, String affinity, int hp, int energy, int attack, int defense) {
+
+    public CardFormDTO(int id, float price, String name, String description, String imgUrl, String type1, String type2, int hp, int attack, int defense) {
         this.id = id;
         this.price = price;
         this.name = name;
         this.description = description;
         this.imgUrl = imgUrl;
-        this.family = family;
-        this.affinity = affinity;
+        this.type1 = type1;
+        this.type2 = type2;
         this.hp = hp;
-        this.energy = energy;
         this.attack = attack;
         this.defense = defense;
-
-        this.allFamilies = Arrays.asList("Eau", "Feu", "Electrique", "Fée");
-        this.allAffinities = Arrays.asList("Eau", "Feu", "Electrique", "Fée");
     }
 
     public int getId() {
@@ -93,36 +83,12 @@ public class CardFormDTO {
         this.imgUrl = imgUrl;
     }
 
-    public String getFamily() {
-        return family;
-    }
-
-    public void setFamily(String family) {
-        this.family = family;
-    }
-
-    public String getAffinity() {
-        return affinity;
-    }
-
-    public void setAffinity(String affinity) {
-        this.affinity = affinity;
-    }
-
     public int getHp() {
         return hp;
     }
 
     public void setHp(int hp) {
         this.hp = hp;
-    }
-
-    public int getEnergy() {
-        return energy;
-    }
-
-    public void setEnergy(int energy) {
-        this.energy = energy;
     }
 
     public int getAttack() {
@@ -139,5 +105,21 @@ public class CardFormDTO {
 
     public void setDefense(int defense) {
         this.defense = defense;
+    }
+
+    public String getType1() {
+        return type1;
+    }
+
+    public void setType1(String type1) {
+        this.type1 = type1;
+    }
+
+    public String getType2() {
+        return type2;
+    }
+
+    public void setType2(String type2) {
+        this.type2 = type2;
     }
 }
