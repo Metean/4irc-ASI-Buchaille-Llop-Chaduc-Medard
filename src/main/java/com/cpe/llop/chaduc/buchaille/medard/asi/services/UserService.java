@@ -1,16 +1,15 @@
 package com.cpe.llop.chaduc.buchaille.medard.asi.services;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.cpe.llop.chaduc.buchaille.medard.asi.models.User;
 
 public interface UserService {
-    public void /*UserSummaryResponse*/ getUserSummary(@RequestParam("userId") String userId);
+    User getUserSummary(Long userId);
 
-    public void addUser(/*@RequestBody AddUserRequest addUserRequest*/);
+    User addUser(String username, String password, String email);
 
-    public void setUserMoney(/*@RequestBody SetUserMoneyRequest setUserMoneyRequest*/);
+    User setUserMoney(long userId, Integer userMoney);
 
     public void addUserCard(/*@RequestBody AddUserCardRequest addUserCardRequest*/);
 
-    public void removeUserCard(/*@RequestBody RemoveUserCardRequest removeUserCardRequest*/);
+    User removeUserCard(Long userId);
 }
