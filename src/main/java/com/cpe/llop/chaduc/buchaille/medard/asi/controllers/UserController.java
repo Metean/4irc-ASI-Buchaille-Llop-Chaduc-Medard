@@ -2,6 +2,7 @@ package com.cpe.llop.chaduc.buchaille.medard.asi.controllers;
 
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.User;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.UserFormDTO;
+import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.UserMoneyFormDTO;
 import com.cpe.llop.chaduc.buchaille.medard.asi.services.UserService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
@@ -23,27 +24,50 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable("id") Long id) {
+    public String getUser(@NotNull Model model, @PathVariable("id") Long id) {
         User ret = this.userService.getUser(id);
-        log.info(ret.toString());
-        return ret;
+        if(ret == null) {
+            return "redirect:/";
+        }
+        model.addAttribute("user", ret);
+        return "userView";
     }
 
     @GetMapping("/register")
-    public String register(@NotNull Model model) {
+    public String registerView(@NotNull Model model) {
         UserFormDTO userForm = new UserFormDTO();
         model.addAttribute("userForm", userForm);
         return "userForm";
     }
 
     @PostMapping("/register")
-    public void addUser(/*@RequestBody AddUserRequest addUserRequest*/) {
-        this.userService.addUser();
+    public String register(UserFormDTO userForm) {
+        User u = this.userService.addUser(userForm);
+        return  "redirect:/user/" + u.getId();
     }
 
-    @PostMapping("/money")
-    public void setUserMoney(/*@RequestBody SetUserMoneyRequest setUserMoneyRequest*/) {
-        // Implement setUserMoney logic using the userService
+    @GetMapping("/{id}/money")
+    public String userMoneyView(@NotNull Model model, @PathVariable("id") Long id) {
+        User u = this.userService.getUser(id);
+        if(u == null) {
+            return "redirect:/";
+        }
+        UserMoneyFormDTO userMoneyForm = new UserMoneyFormDTO();
+        model.addAttribute("user", u);
+        model.addAttribute("userMoneyForm", userMoneyForm);
+        return "userMoneyForm";
+    }
+
+    @PostMapping("/{id}/money")
+    public String userMoneyView(@NotNull Model model, @PathVariable("id") Long id, UserMoneyFormDTO userMoneyForm) {
+        User u = this.userService.getUser(id);
+        if(u == null) {
+            return "redirect:/";
+        }
+        userMoneyForm.setMoney(userMoneyForm.getMoney() + u.getMoney());
+        userMoneyForm.setUserId(u.getId());
+        this.userService.setUserMoney(userMoneyForm);
+        return "redirect:/user/" + id;
     }
 
     @PostMapping("/card/add")

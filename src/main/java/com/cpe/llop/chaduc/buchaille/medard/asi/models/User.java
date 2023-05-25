@@ -21,6 +21,7 @@ public class User {
         this.username = username;
         this.password=password;
         this.email=email;
+        this.money=0.0;
     }
 
     public Long getId() {

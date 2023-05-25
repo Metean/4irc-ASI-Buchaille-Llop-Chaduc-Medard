@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+<form th:action="@{/user/{id}/money (id=${user.id})}"
+      th:object="${userMoneyForm}"
+      method="POST">
+    <fieldset>
+        <legend>Add money</legend>
+
+        <div>
+            <h3 th:utext="${user.username}">...</h3>
+            <h3 th:utext="'Actual:' + ${user.money} + '$'">...</h3>
+        </div>
+
+        <div>
+            <label for="form-money">Add</label>
+            <div>
+                <input
+                        id="form-money"
+                        type="number"
+                        name="money"
+                        placeholder="10.00$"
+                        th:field="*{money}"
+                >
+            </div>
+        </div>
+
+        <div>
+            <input type="submit"
+                   class="uk-button uk-button-default"
+                   value="Register">
+        </div>
+    </fieldset>
+</form>
+</body>
+</html>
