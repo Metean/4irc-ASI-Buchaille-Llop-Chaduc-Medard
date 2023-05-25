@@ -40,8 +40,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public void addUser(@RequestBody UserFormDTO userForm) {
-        this.userService.addUser(userForm);
+    public String register(UserFormDTO userForm) {
+        User u = this.userService.addUser(userForm);
+        return  "redirect:/user/" + u.getId();
     }
 
     @PostMapping("/money")

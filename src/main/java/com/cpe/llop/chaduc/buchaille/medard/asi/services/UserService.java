@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface UserService {
     public User getUser(@RequestParam("userId") Long userId);
 
-    public void addUser(@RequestBody UserFormDTO userForm);
+    public User addUser(UserFormDTO userForm);
 
     public void setUserMoney(/*@RequestBody SetUserMoneyRequest setUserMoneyRequest*/);
 

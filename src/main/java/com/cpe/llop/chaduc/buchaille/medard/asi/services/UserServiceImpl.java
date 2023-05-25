@@ -32,9 +32,10 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public void addUser(@RequestBody UserFormDTO userForm) {
+    public User addUser(@RequestBody UserFormDTO userForm) {
         User u = new User(userForm.getUsername(), userForm.getPassword(), userForm.getEmail());
         userRepository.save(u);
+        return u;
     }
 
     public void setUserMoney(/*@RequestBody SetUserMoneyRequest setUserMoneyRequest*/) {
