@@ -37,8 +37,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public void addUser(/*@RequestBody AddUserRequest addUserRequest*/) {
-        this.userService.addUser();
+    public void addUser(@RequestBody UserFormDTO userForm) {
+        this.userService.addUser(userForm);
     }
 
     @PostMapping("/money")
