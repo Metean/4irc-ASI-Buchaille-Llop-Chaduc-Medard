@@ -22,17 +22,19 @@ public class CardDAO {
         Card c1 = new Card(1, 10, "Pikachu", "Pokemon de type electrique", "https://www.pokepedia.fr/images/thumb/7/76/Pikachu-DEPS.png/640px-Pikachu-DEPS.png", "Electrique", "Electrique", 10, 30, 40);
         myCardList.add(c1);
     }
+
     public List<Card> getCardList() {
         return this.myCardList;
     }
-    /*public Card getCardByName(String name){
-        for (Card poneyBean : myPoneyList) {
-            if(poneyBean.getName().equals(name)){
-                return poneyBean;
+
+    public Card getCard(int id){
+        for (Card card : myCardList) {
+            if(card.getId() == id){
+                return card;
             }
         }
         return null;
-    }*/
+    }
 
     public Card getRandomCard(){
         int index = randomGenerator.nextInt(this.myCardList.size());

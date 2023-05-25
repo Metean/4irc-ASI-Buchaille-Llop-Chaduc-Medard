@@ -8,6 +8,9 @@
 </head>
 
 <body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
 <form th:action="@{/addCard}" th:object="${cardForm}" method="POST">
     <fieldset>
         <legend>Formulaire d'ajout de carte</legend>
