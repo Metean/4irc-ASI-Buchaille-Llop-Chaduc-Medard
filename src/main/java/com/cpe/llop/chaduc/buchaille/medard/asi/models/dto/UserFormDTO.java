@@ -1,37 +1,20 @@
-package com.cpe.llop.chaduc.buchaille.medard.asi.models;
+package com.cpe.llop.chaduc.buchaille.medard.asi.models.dto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "app_user")
-public class User {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class UserFormDTO {
     private String username;
     private String password;
     private String email;
     private Double money;
 
-    public User() {
-    }
-
-    public User(String username, String password, String email) {
+    public UserFormDTO() {}
+    public UserFormDTO(String username, String password, String email) {
         this.username = username;
-        this.password = password;
-        this.email = email;
-        this.money = 0.0;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.password=password;
+        this.email=email;
     }
 
     public String getUsername() {
