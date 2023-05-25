@@ -23,10 +23,13 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable("id") Long id) {
+    public String getUser(@NotNull Model model, @PathVariable("id") Long id) {
         User ret = this.userService.getUser(id);
-        log.info(ret.toString());
-        return ret;
+        if(ret == null) {
+            return "redirect:/";
+        }
+        model.addAttribute("user", ret);
+        return "userView";
     }
 
     @GetMapping("/register")
