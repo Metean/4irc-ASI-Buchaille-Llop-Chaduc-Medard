@@ -11,7 +11,7 @@ public interface UserService {
 
     public User addUser(UserFormDTO userForm);
 
-    public void setUserMoney(/*@RequestBody SetUserMoneyRequest setUserMoneyRequest*/);
+    public void setUserMoney(UserMoneyFormDTO userMoneyForm);
 
     public void addUserCard(/*@RequestBody AddUserCardRequest addUserCardRequest*/);
 

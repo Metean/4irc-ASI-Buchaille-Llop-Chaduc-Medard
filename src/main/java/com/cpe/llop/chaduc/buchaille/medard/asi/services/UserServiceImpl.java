@@ -38,8 +38,10 @@ public class UserServiceImpl implements UserService {
         return u;
     }
 
-    public void setUserMoney(/*@RequestBody SetUserMoneyRequest setUserMoneyRequest*/) {
-
+    public void setUserMoney(UserMoneyFormDTO userMoneyForm) {
+        User u = userRepository.getReferenceById(userMoneyForm.getUserId());
+        u.setMoney(userMoneyForm.getMoney());
+        userRepository.save(u);
     }
 
     public void addUserCard(/*@RequestBody AddUserCardRequest addUserCardRequest*/) {
