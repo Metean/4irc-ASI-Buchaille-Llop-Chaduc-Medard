@@ -4,12 +4,13 @@ import com.cpe.llop.chaduc.buchaille.medard.asi.models.User;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.UserFormDTO;
 import com.cpe.llop.chaduc.buchaille.medard.asi.services.UserService;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UserController {
 
