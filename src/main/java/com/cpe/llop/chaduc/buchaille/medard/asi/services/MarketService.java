@@ -1,7 +1,11 @@
 package com.cpe.llop.chaduc.buchaille.medard.asi.services;
 
+import com.cpe.llop.chaduc.buchaille.medard.asi.models.Card;
+
+import java.util.List;
+
 public interface MarketService {
-    public ArrayList<Card> GetAvailableCards();
-    public void SellCard(String cardId, String username);
-    public void BuyCard(String cardId, String username);
+    public List<Card> GetAvailableCards();
+    public void SellCard(Long cardId, String username);
+    public void BuyCard(Long cardId, String username);
 }

@@ -44,7 +44,6 @@ public class CardController {
     @RequestMapping(value = { "/addCard"}, method = RequestMethod.POST)
     public String addcard(Model model, @ModelAttribute("cardForm") CardFormDTO cardForm) {
         Card c = cardDAO.addCard(
-                0, // TODO: Id à définir !
                 cardForm.getPrice(),
                 cardForm.getName(),
                 cardForm.getDescription(),
@@ -58,5 +57,4 @@ public class CardController {
         model.addAttribute("myCard", c);
         return "cardView";
     }
-
 }
