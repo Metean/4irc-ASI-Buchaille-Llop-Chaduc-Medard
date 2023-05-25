@@ -46,6 +46,20 @@ public class UserController {
         return  "redirect:/user/" + u.getId();
     }
 
+
+    @GetMapping("/login")
+    public String loginView(@NotNull Model model) {
+        UserFormDTO userForm = new UserFormDTO();
+        model.addAttribute("userForm", userForm);
+        return "userLoginForm";
+    }
+
+    @PostMapping("/login")
+    public String login(UserFormDTO userForm) {
+        User u = this.userService.checkUser(userForm);
+        return  "redirect:/user/" + u.getId();
+    }
+
     @GetMapping("/{id}/money")
     public String userMoneyView(@NotNull Model model, @PathVariable("id") Long id) {
         User u = this.userService.getUser(id);

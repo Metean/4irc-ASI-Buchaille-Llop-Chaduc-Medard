@@ -16,4 +16,6 @@ public interface UserService {
     public void addUserCard(/*@RequestBody AddUserCardRequest addUserCardRequest*/);
 
     public void removeUserCard(/*@RequestBody RemoveUserCardRequest removeUserCardRequest*/);
+
+    public User checkUser(UserFormDTO userForm);
 }

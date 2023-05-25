@@ -4,10 +4,11 @@ import com.cpe.llop.chaduc.buchaille.medard.asi.models.User;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.UserFormDTO;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.UserMoneyFormDTO;
 import com.cpe.llop.chaduc.buchaille.medard.asi.repositories.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -43,5 +44,16 @@ public class UserServiceImpl implements UserService {
 
     public void removeUserCard(/*@RequestBody RemoveUserCardRequest removeUserCardRequest*/) {
 
+    }
+
+    public User checkUser(UserFormDTO userForm) {
+        User u = userRepository.findByUsername(userForm.getUsername());
+        if(u == null) {
+            return null;
+        }
+        if(u.getPassword().equals(userForm.getPassword())) {
+            return u;
+        }
+        return null;
     }
 }
