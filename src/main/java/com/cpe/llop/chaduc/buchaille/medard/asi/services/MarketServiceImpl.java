@@ -19,20 +19,23 @@ public class MarketServiceImpl implements MarketService {
 
     @Override
     public List<Card> GetAvailableCards() {
-        return cardRepository.findAll();
+        return cardRepository.findByUserIsNull();
     }
 
     @Override
     public void SellCard(Long cardId, String username) {
-        Card c = cardRepository.getReferenceById(cardId);
-        User u = userRepository.findByUsername(username);
-
-        c.setUser(u.getId());
-        cardRepository.save(c);
+        //TODO
     }
 
     @Override
     public void BuyCard(Long cardId, String username) {
-        //todo
+        Card c = cardRepository.getReferenceById(cardId);
+        User u = userRepository.findByUsername(username);
+
+        if(u.getMoney() < c.getPrice())
+            return;
+
+        c.setUser(u);
+        cardRepository.save(c);
     }
 }

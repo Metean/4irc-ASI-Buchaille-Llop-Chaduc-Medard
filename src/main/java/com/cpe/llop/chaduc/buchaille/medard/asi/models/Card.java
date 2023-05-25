@@ -2,6 +2,7 @@ package com.cpe.llop.chaduc.buchaille.medard.asi.models;
 
 import jakarta.persistence.*;
 
+@Entity
 public class Card {
     @Id
     @GeneratedValue
@@ -18,7 +19,7 @@ public class Card {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "user_id")
-    private Long user_id;
+    private User user = null;
 
     public Card(){}
 
@@ -113,11 +114,11 @@ public class Card {
     public void setType2(String type2) {
         this.type2 = type2;
     }
-    public Long getUser() {
-        return user_id;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser(Long user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
