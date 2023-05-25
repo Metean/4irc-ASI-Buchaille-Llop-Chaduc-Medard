@@ -20,15 +20,8 @@ public class UserServiceImpl implements UserService {
     //TODO: report the logic from the user controller here, (with the connection to the database)
     @Override
     public User getUser(@RequestParam("userId") Long userId) {
-        try {
-            User u = userRepository.getReferenceById(userId);
-            if(u.getClass() != User.class) {
-                throw new EntityNotFoundException();
-            }
-            return u;
-        } catch (Throwable e) {
-            return null;
-        }
+        Optional<User> u = userRepository.findById(userId);
+        return u.orElse(null);
     }
 
 
@@ -39,7 +32,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void setUserMoney(UserMoneyFormDTO userMoneyForm) {
-        User u = userRepository.getReferenceById(userMoneyForm.getUserId());
+        User u = this.getUser(userMoneyForm.getUserId());
         u.setMoney(userMoneyForm.getMoney());
         userRepository.save(u);
     }
