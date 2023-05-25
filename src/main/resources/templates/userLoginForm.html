@@ -10,7 +10,7 @@
 <div th:replace="fragments/header :: header">
     <h1> THIS IS A DEFAULT HEADER</h1>
 </div>
-<form th:action="@{/user/login}"
+<form th:action="@{/login}"
       th:object="${userForm}"
       method="POST">
     <fieldset>
@@ -50,7 +50,7 @@
 </form>
 
 <div>
-    <a th:href="@{/user/register}" class="btn btn-primary">Register</a>
+    <a th:href="@{/register}" class="btn btn-primary">Register</a>
 </div>
 </body>
 </html>
