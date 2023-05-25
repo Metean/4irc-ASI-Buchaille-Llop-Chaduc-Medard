@@ -8,6 +8,9 @@
 </head>
 <body>
 <div>
+  <div th:replace="fragments/header :: header">
+    <h1> THIS IS A DEFAULT HEADER</h1>
+  </div>
   <h3 th:utext="${user.username}">...</h3>
 
   <h5 th:text="'Email:  ' + ${user.email}">...</h5>
