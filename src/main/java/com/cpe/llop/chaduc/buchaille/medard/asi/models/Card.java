@@ -12,7 +12,7 @@ public class Card {
     private String description;
     @Lob
     @Column(name="CONTENT", length=512)
-    private String imgUrl;
+    private String imageUrl;
     private String type1;
     private String type2;
     private int hp;
@@ -25,11 +25,11 @@ public class Card {
 
     public Card(){}
 
-    public Card( float price, String name, String description, String imgUrl, String type1, String type2, int hp, int attack, int defense) {
+    public Card( float price, String name, String description, String imageUrl, String type1, String type2, int hp, int attack, int defense) {
         this.price = price;
         this.name = name;
         this.description = description;
-        this.imgUrl = imgUrl;
+        this.imageUrl = imageUrl;
         this.type1 = type1;
         this.type2 = type2;
         this.hp = hp;
@@ -69,12 +69,12 @@ public class Card {
         this.description = description;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public String getimageUrl() {
+        return imageUrl;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setimageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public int getHp() {

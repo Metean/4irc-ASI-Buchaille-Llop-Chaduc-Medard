@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '@/components/Home.vue'
-import Register from '@/components/user/Register.vue'
-import Login from '@/components/user/Login.vue'
-import CardInfos from '@/components/cards/CardInfos.vue'
-import CardsList from '@/components/cards/CardsList.vue'
-import Play from '@/components/game/Play.vue'
-import BuyCard from '@/components/market/BuyCard.vue'
-import SellCard from '@/components/market/SellCard.vue'
+import Home from './components/Home.vue'
+import Register from './components/user/Register.vue'
+import Login from './components/user/Login.vue'
+import CardInfos from './components/cards/CardInfos.vue'
+import CardsList from './components/cards/CardsList.vue'
+import Play from './components/game/Play.vue'
+import BuyCard from './components/market/BuyCard.vue'
+import SellCard from './components/market/SellCard.vue'
 
 const routes: Array<RouteRecordRaw> = [
 	{
