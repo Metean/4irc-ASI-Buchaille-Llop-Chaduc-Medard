@@ -1,7 +1,12 @@
 package com.cpe.llop.chaduc.buchaille.medard.asi.models;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Card {
-    private int id;
+    @Id
+    @GeneratedValue
+    private Long id;
     private float price;
     private String name;
     private String description;
@@ -12,20 +17,13 @@ public class Card {
     private int attack;
     private int defense;
 
-    public Card() {
-        this.id = 0;
-        this.price = 0;
-        this.name = "";
-        this.description = "";
-        this.imgUrl = "";
-        this.type1 = "";
-        this.type2 = "";
-        this.hp = 0;
-        this.attack = 0;
-        this.defense = 0;
-    }
-    public Card(int id, float price, String name, String description, String imgUrl, String type1, String type2, int hp, int attack, int defense) {
-        this.id = id;
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "user_id")
+    private User user = null;
+
+    public Card(){}
+
+    public Card( float price, String name, String description, String imgUrl, String type1, String type2, int hp, int attack, int defense) {
         this.price = price;
         this.name = name;
         this.description = description;
@@ -37,11 +35,11 @@ public class Card {
         this.defense = defense;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    private void setId(Long id) {
         this.id = id;
     }
 
@@ -115,5 +113,12 @@ public class Card {
 
     public void setType2(String type2) {
         this.type2 = type2;
+    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

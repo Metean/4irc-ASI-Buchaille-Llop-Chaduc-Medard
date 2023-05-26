@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -21,23 +20,10 @@ public class CardController {
     @Autowired
     CardServiceImpl cardDAO;
 
-    // Accueil
-    @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
-    public String index(Model model) {
-        return "cardList";
-    }
-
-    // Afficher carte random
-    @RequestMapping(value = { "/card"}, method = RequestMethod.GET)
-    public String card(Model model) {
+    // Afficher carte
+    @RequestMapping(value = { "/view"}, method = RequestMethod.GET)
+    public String view(Model model) {
         model.addAttribute("myCard", cardDAO.getRandomCard());
-        return "cardView";
-    }
-
-    // Afficher carte précise
-    @RequestMapping(value = { "/card/{id}"}, method = RequestMethod.GET)
-    public String cardId(Model model, @PathVariable("id") int id) {
-        model.addAttribute("myCard", cardDAO.getCard(id));
         return "cardView";
     }
 
@@ -57,11 +43,7 @@ public class CardController {
     // Traiter form et afficher carte
     @RequestMapping(value = { "/addCard"}, method = RequestMethod.POST)
     public String addcard(Model model, @ModelAttribute("cardForm") CardFormDTO cardForm) {
-
-        int id = 0; // TODO: Id à définir !
-
         Card c = cardDAO.addCard(
-                id,
                 cardForm.getPrice(),
                 cardForm.getName(),
                 cardForm.getDescription(),
@@ -73,7 +55,6 @@ public class CardController {
                 cardForm.getDefense()
         );
         model.addAttribute("myCard", c);
-        return "redirect:/view/" + id;
+        return "cardView";
     }
-
 }
