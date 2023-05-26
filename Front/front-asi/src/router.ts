@@ -1,25 +1,59 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from './components/HomeView.vue'
+import Home from '@/components/Home.vue'
+import Register from '@/components/user/Register.vue'
+import Login from '@/components/user/Login.vue'
+import CardInfos from '@/components/cards/CardInfos.vue'
+import CardsList from '@/components/cards/CardsList.vue'
+import Play from '@/components/game/Play.vue'
+import BuyCard from '@/components/market/BuyCard.vue'
+import SellCard from '@/components/market/SellCard.vue'
 
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ './components/AboutView.vue')
-  }
+	{
+		path: '/',
+		name: 'home',
+		component: Home,
+	},
+	{
+		path: '/register',
+		name: 'register',
+		component: Register,
+	},
+	{
+		path: '/login',
+		name: 'login',
+		component: Login,
+	},
+	{
+		path: '/cards/:id',
+		name: 'card-info',
+		component: CardInfos,
+	},
+	{
+		path: '/cards',
+		name: 'cards-list',
+		component: CardsList,
+	},
+	{
+		path: '/play',
+		name: 'play',
+		component: Play,
+	},
+	{
+		path: '/buy',
+		name: 'buy',
+		component: BuyCard,
+	},
+	{
+		path: '/sell',
+		name: 'sell',
+		component: SellCard,
+	},
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
+	history: createWebHistory(process.env.BASE_URL),
+	routes,
 })
 
 export default router
