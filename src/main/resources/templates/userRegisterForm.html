@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" data-th-href="@{/css/style.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/formStyle.css" data-th-href="@{/css/formStyle.css}" />
 </head>
 
 <body>
-<form th:action="@{/user/register}"
+<div th:replace="fragments/header :: header">
+    <h1> THIS IS A DEFAULT HEADER</h1>
+</div>
+<form th:action="@{/register}"
       th:object="${userForm}"
       method="POST">
     <fieldset>
         <legend>S'inscrire</legend>
 
-        <div>
+        <div class="form__line">
             <label for="form-name">Nom d'utilisateur</label>
             <div>
                 <input
@@ -26,7 +30,7 @@
             </div>
         </div>
 
-        <div>
+        <div class="form__line">
             <label for="form-email">Email</label>
             <div>
                 <input
@@ -38,7 +42,7 @@
             </div>
         </div>
 
-        <div>
+        <div class="form__line">
             <label for="form-password">Mot de passe</label>
             <div>
                 <input
@@ -57,5 +61,8 @@
         </div>
     </fieldset>
 </form>
+<div>
+    <a th:href="@{/login}" class="btn btn-primary">Login</a>
+</div>
 </body>
 </html>

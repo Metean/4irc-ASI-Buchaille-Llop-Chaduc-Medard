@@ -16,12 +16,14 @@ public class User {
     private String email;
     private Double money;
 
-    public User() {}
+    public User() {
+    }
+
     public User(String username, String password, String email) {
         this.username = username;
-        this.password=password;
-        this.email=email;
-        this.money=0.0;
+        this.password = password;
+        this.email = email;
+        this.money = 0.0;
     }
 
     public Long getId() {

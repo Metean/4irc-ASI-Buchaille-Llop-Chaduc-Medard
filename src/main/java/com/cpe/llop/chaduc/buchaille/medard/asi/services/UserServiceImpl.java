@@ -4,10 +4,11 @@ import com.cpe.llop.chaduc.buchaille.medard.asi.models.User;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.UserFormDTO;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.UserMoneyFormDTO;
 import com.cpe.llop.chaduc.buchaille.medard.asi.repositories.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -20,15 +21,8 @@ public class UserServiceImpl implements UserService {
     //TODO: report the logic from the user controller here, (with the connection to the database)
     @Override
     public User getUser(@RequestParam("userId") Long userId) {
-        try {
-            User u = userRepository.getReferenceById(userId);
-            if(u.getClass() != User.class) {
-                throw new EntityNotFoundException();
-            }
-            return u;
-        } catch (Throwable e) {
-            return null;
-        }
+        Optional<User> u = userRepository.findById(userId);
+        return u.orElse(null);
     }
 
 
@@ -39,7 +33,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void setUserMoney(UserMoneyFormDTO userMoneyForm) {
-        User u = userRepository.getReferenceById(userMoneyForm.getUserId());
+        User u = this.getUser(userMoneyForm.getUserId());
         u.setMoney(userMoneyForm.getMoney());
         userRepository.save(u);
     }
@@ -50,5 +44,22 @@ public class UserServiceImpl implements UserService {
 
     public void removeUserCard(/*@RequestBody RemoveUserCardRequest removeUserCardRequest*/) {
 
+    }
+
+    public User checkUser(UserFormDTO userForm) {
+        User u = userRepository.findByUsername(userForm.getUsername());
+        if(u == null) {
+            return null;
+        }
+        if(u.getPassword().equals(userForm.getPassword())) {
+            return u;
+        }
+        return null;
+    }
+
+    public User removeUserCard(Long userId) {
+        User user = userRepository.getReferenceById(userId);
+        userRepository.delete(user);
+        return user;
     }
 }
