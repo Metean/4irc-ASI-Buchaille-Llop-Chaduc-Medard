@@ -4,9 +4,11 @@ import com.cpe.llop.chaduc.buchaille.medard.asi.models.Card;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.User;
 import com.cpe.llop.chaduc.buchaille.medard.asi.repositories.CardRepository;
 import com.cpe.llop.chaduc.buchaille.medard.asi.repositories.UserRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class MarketServiceImpl implements MarketService {
 
     private final CardRepository cardRepository;
@@ -23,19 +25,20 @@ public class MarketServiceImpl implements MarketService {
     }
 
     @Override
-    public void SellCard(Long cardId, String username) {
-        //TODO
-    }
-
-    @Override
-    public void BuyCard(Long cardId, String username) {
+    public boolean SellCard(Long cardId, String username) {
         Card c = cardRepository.getReferenceById(cardId);
         User u = userRepository.findByUsername(username);
 
         if(u.getMoney() < c.getPrice())
-            return;
+            return false;
 
         c.setUser(u);
         cardRepository.save(c);
+        return true;
+    }
+
+    @Override
+    public void BuyCard(Long cardId, String username) {
+
     }
 }
