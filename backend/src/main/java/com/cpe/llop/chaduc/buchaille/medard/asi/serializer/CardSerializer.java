@@ -20,7 +20,7 @@ public class CardSerializer extends JsonSerializer<Card> {
         jsonGenerator.writeNumberField("id", card.getId());
         jsonGenerator.writeStringField("name", card.getName());
 
-        jsonGenerator.writeNumberField("health", card.getHealth());
+        jsonGenerator.writeNumberField("health", card.getHp());
         jsonGenerator.writeNumberField("attack", card.getAttack());
         jsonGenerator.writeNumberField("defense", card.getDefense());
 

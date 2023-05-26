@@ -1,35 +1,43 @@
 package com.cpe.llop.chaduc.buchaille.medard.asi.services;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.Card;
 import com.cpe.llop.chaduc.buchaille.medard.asi.repositories.CardRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CardServiceImpl implements CardService {
 
-    CardRepository cardRepository;
+    private final Random randomGenerator;
+    private final CardRepository cardRepository;
 
-    public CardServiceImpl(CardRepository userRepository) {
-        this.cardRepository = userRepository;
+    public CardServiceImpl(CardRepository cardRepository) {
+        randomGenerator = new Random();
+        this.cardRepository = cardRepository;
     }
 
-
-    @Override
-    public Card getCardSummary(String name) {
-        Card card = cardRepository.findByName(name);
-        cardRepository.save(card);
-        return card;
+    public List<Card> getCardList() {
+        return this.cardRepository.findAll();
     }
 
-    @Override
-    public Card addCard(String name, int health, int attack, int defense) {
-        Card card = new Card(name, health, attack, defense);
-        cardRepository.save(card);
-        return card;
+    public Card getCard(int id){
+        return this.cardRepository.findById((long) id).orElse(null);
     }
 
-    @Override
-    public Card removeUserCard(String name) {
-        Card card = cardRepository.findByName(name);
-        cardRepository.delete(card);
-        return card;
+    public Card getRandomCard(){
+        List<Card> cardList = this.cardRepository.findAll();
+        if(cardList.size() == 0)
+            return null;
+        int index = randomGenerator.nextInt(cardList.size());
+        return cardList.get(index);
+    }
+
+    public Card addCard(float price, String name, String description, String imgUrl, String type1,
+                        String type2, int hp, int attack, int defense) {
+        Card c = new Card(price, name, description, imgUrl, type1, type2, hp, attack, defense);
+        return this.cardRepository.save(c);
     }
 }
