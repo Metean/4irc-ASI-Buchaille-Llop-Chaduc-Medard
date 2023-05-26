@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.cpe.llop.chaduc.buchaille.medard.asi.importer.PokemonImporter;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.Card;
 import com.cpe.llop.chaduc.buchaille.medard.asi.repositories.CardRepository;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ public class CardServiceImpl implements CardService {
     public CardServiceImpl(CardRepository cardRepository) {
         randomGenerator = new Random();
         this.cardRepository = cardRepository;
+        
+        if(this.cardRepository.findAll().isEmpty())
+            this.cardRepository.saveAll(new PokemonImporter().getPokemonCards());
     }
 
     public List<Card> getCardList() {
