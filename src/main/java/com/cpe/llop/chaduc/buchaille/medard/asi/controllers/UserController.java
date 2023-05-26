@@ -1,10 +1,14 @@
 package com.cpe.llop.chaduc.buchaille.medard.asi.controllers;
 
+import com.cpe.llop.chaduc.buchaille.medard.asi.importer.PokemonImporter;
+import com.cpe.llop.chaduc.buchaille.medard.asi.models.Card;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.User;
 import com.cpe.llop.chaduc.buchaille.medard.asi.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -22,6 +26,7 @@ public class UserController {
     public User/*UserSummaryResponse*/ getUserSummary(@RequestParam("userId") Long userId) {
         // Implement getUserSummary logic using the userService
         // Return the user summary response
+        PokemonImporter p = new PokemonImporter();
         return this.userService.getUserSummary(userId);
     }
 

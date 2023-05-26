@@ -9,10 +9,20 @@ public class Card {
     @Id
     private long id;
 
-    private int name;
+    private String name;
     private int health;
     private int attack;
     private int defense;
+
+    public Card() {
+    }
+
+    public Card(String name, int health, int attack, int defense) {
+        setName(name);
+        setHealth(health);
+        setAttack(attack);
+        setDefense(defense);
+    }
 
     private void setId(Long id) {
         this.id = id;
@@ -22,11 +32,11 @@ public class Card {
         return id;
     }
 
-    public int getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(int name) {
+    public void setName(String name) {
         this.name = name;
     }
 
