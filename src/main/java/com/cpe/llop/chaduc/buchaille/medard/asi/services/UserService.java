@@ -1,15 +1,21 @@
 package com.cpe.llop.chaduc.buchaille.medard.asi.services;
 
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.User;
+import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.UserFormDTO;
+import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.UserMoneyFormDTO;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public interface UserService {
-    User getUserSummary(Long userId);
+    public User getUser(@RequestParam("userId") Long userId);
 
-    User addUser(String username, String password, String email);
+    public User addUser(UserFormDTO userForm);
 
-    User setUserMoney(long userId, Integer userMoney);
+    public void setUserMoney(UserMoneyFormDTO userMoneyForm);
 
     public void addUserCard(/*@RequestBody AddUserCardRequest addUserCardRequest*/);
 
-    User removeUserCard(Long userId);
+    public void removeUserCard(/*@RequestBody RemoveUserCardRequest removeUserCardRequest*/);
+
+    public User checkUser(UserFormDTO userForm);
 }

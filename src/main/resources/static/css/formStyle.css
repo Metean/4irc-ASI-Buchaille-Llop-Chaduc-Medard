@@ -1,0 +1,24 @@
+legend {
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.form__line {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    margin-bottom: 5px;
+}
+
+label {
+    width: 90px;
+}
+
+select {
+    width: 160px;
+}
+
+.form__button {
+    margin: 15px;
+}
+

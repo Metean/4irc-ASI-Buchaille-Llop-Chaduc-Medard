@@ -1,20 +1,21 @@
 package com.cpe.llop.chaduc.buchaille.medard.asi.controllers;
 
-import com.cpe.llop.chaduc.buchaille.medard.asi.importer.PokemonImporter;
-import com.cpe.llop.chaduc.buchaille.medard.asi.models.Card;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.User;
+import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.UserFormDTO;
+import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.UserMoneyFormDTO;
 import com.cpe.llop.chaduc.buchaille.medard.asi.services.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@RestController
-@RequestMapping("/user")
+@Controller
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
@@ -22,34 +23,73 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/summary")
-    public User/*UserSummaryResponse*/ getUserSummary(@RequestParam("userId") Long userId) {
-        // Implement getUserSummary logic using the userService
-        // Return the user summary response
-        PokemonImporter p = new PokemonImporter();
-        return this.userService.getUserSummary(userId);
+    @GetMapping("/user/{id}")
+    public String getUser(@NotNull Model model, @PathVariable("id") Long id) {
+        User ret = this.userService.getUser(id);
+        if(ret == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("user", ret);
+        return "userView";
     }
 
-    @PostMapping("/add")
-    public User addUser(@RequestParam("username") String username,
-                        @RequestParam("password") String password,
-                        @RequestParam("email") String email) {
-
-        return this.userService.addUser(username, password, email);
+    @GetMapping("/register")
+    public String registerView(@NotNull Model model) {
+        UserFormDTO userForm = new UserFormDTO();
+        model.addAttribute("userForm", userForm);
+        return "userRegisterForm";
     }
 
-    @PostMapping("/money")
-    public User setUserMoney(@RequestParam("userId") long userId, @RequestParam("money") Integer userMoney) {
-        return this.userService.setUserMoney(userId, userMoney);
-
+    @PostMapping("/register")
+    public String register(UserFormDTO userForm) {
+        User u = this.userService.addUser(userForm);
+        return  "redirect:/user/" + u.getId();
     }
 
-    @PostMapping("/card/add")
+
+    @GetMapping("/login")
+    public String loginView(@NotNull Model model) {
+        UserFormDTO userForm = new UserFormDTO();
+        model.addAttribute("userForm", userForm);
+        return "userLoginForm";
+    }
+
+    @PostMapping("/login")
+    public String login(UserFormDTO userForm) {
+        User u = this.userService.checkUser(userForm);
+        return  "redirect:/user/" + u.getId();
+    }
+
+    @GetMapping("/user/{id}/money")
+    public String userMoneyView(@NotNull Model model, @PathVariable("id") Long id) {
+        User u = this.userService.getUser(id);
+        if(u == null) {
+            return "redirect:/login";
+        }
+        UserMoneyFormDTO userMoneyForm = new UserMoneyFormDTO();
+        model.addAttribute("user", u);
+        model.addAttribute("userMoneyForm", userMoneyForm);
+        return "userMoneyForm";
+    }
+
+    @PostMapping("/user/{id}/money")
+    public String userMoneyView(@NotNull Model model, @PathVariable("id") Long id, UserMoneyFormDTO userMoneyForm) {
+        User u = this.userService.getUser(id);
+        if(u == null) {
+            return "redirect:/login";
+        }
+        userMoneyForm.setMoney(userMoneyForm.getMoney() + u.getMoney());
+        userMoneyForm.setUserId(u.getId());
+        this.userService.setUserMoney(userMoneyForm);
+        return "redirect:/user/" + id;
+    }
+
+    @PostMapping("/user/card/add")
     public void addUserCard(/*@RequestBody AddUserCardRequest addUserCardRequest*/) {
         // Implement addUserCard logic using the userService
     }
 
-    @PostMapping("/card/remove")
+    @PostMapping("/user/card/remove")
     public void removeUserCard(/*@RequestBody RemoveUserCardRequest removeUserCardRequest*/) {
         // Implement removeUserCard logic using the userService
     }

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>CARDS</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" data-th-href="@{/css/style.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/formStyle.css" data-th-href="@{/css/formStyle.css}" />
+</head>
+
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<form th:action="@{/addCard}" th:object="${cardForm}" method="POST">
+    <fieldset>
+        <legend>Formulaire d'ajout de carte</legend>
+
+        <div class="form__line">
+            <label for="form-name">Name</label>
+            <div>
+                <input
+                        id="form-name"
+                        type="text"
+                        placeholder="Nom de la carte..."
+                        th:field="*{name}"
+                />
+            </div>
+        </div>
+
+        <div class="form__line">
+            <label for="form-description">Description</label>
+            <div>
+                <input
+                        id="form-description"
+                        type="text"
+                        placeholder="Description de la carte..."
+                        th:field="*{description}"
+                />
+            </div>
+        </div>
+
+        <div class="form__line">
+            <label for="form-imgUrl">Image URL</label>
+            <div>
+                <input
+                        id="form-imgUrl"
+                        type="text"
+                        placeholder="Image de la carte..."
+                        th:field="*{imgUrl}"
+                />
+            </div>
+        </div>
+
+        <div class="form__line">
+            <label for="form-type1">Type 1</label>
+            <div>
+                <select id="form-type1" th:field="*{type1}">
+                    <option th:each="t : ${allTypes}" th:value="${t}" th:text="${t}"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form__line">
+            <label for="form-type2">Type 2</label>
+            <div>
+                <select id="form-type2" th:field="*{type2}">
+                    <option th:each="t : ${allTypes}" th:value="${t}" th:text="${t}"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form__line">
+            <label for="form-hp">HP</label>
+            <div>
+                <input
+                        id="form-hp"
+                        th:field="*{hp}"
+                        type="number"
+                />
+            </div>
+        </div>
+
+        <div class="form__line">
+            <label for="form-attack">Attaque</label>
+            <div>
+                <input
+                        id="form-attack"
+                        type="number"
+                        th:field="*{attack}"
+                />
+            </div>
+        </div>
+
+        <div class="form__line">
+            <label for="form-defense">Défense</label>
+            <div>
+                <input
+                        id="form-defense"
+                        type="number"
+                        th:field="*{defense}"
+                />
+            </div>
+        </div>
+
+        <div class="form__button">
+            <input
+                    type="submit"
+                    class="uk-button uk-button-default"
+                    value="Create"
+            />
+        </div>
+
+    </fieldset>
+</form>
+</body>
+</html>

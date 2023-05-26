@@ -1,12 +1,12 @@
-package com.cpe.llop.chaduc.buchaille.medard.asi.models;
+package com.cpe.llop.chaduc.buchaille.medard.asi.models.dto;
 
-import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-@Entity
-public class Card {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class CardFormDTO {
+
+    private int id;
     private float price;
     private String name;
     private String description;
@@ -17,13 +17,21 @@ public class Card {
     private int attack;
     private int defense;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "user_id")
-    private User user = null;
+    public CardFormDTO() {
+        this.id = 0;
+        this.price = 0;
+        this.name = "";
+        this.description = "";
+        this.imgUrl = "";
+        this.type1 = "";
+        this.type2 = "";
+        this.hp = 0;
+        this.attack = 0;
+        this.defense = 0;
+    }
 
-    public Card(){}
-
-    public Card( float price, String name, String description, String imgUrl, String type1, String type2, int hp, int attack, int defense) {
+    public CardFormDTO(int id, float price, String name, String description, String imgUrl, String type1, String type2, int hp, int attack, int defense) {
+        this.id = id;
         this.price = price;
         this.name = name;
         this.description = description;
@@ -35,11 +43,11 @@ public class Card {
         this.defense = defense;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    private void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -113,12 +121,5 @@ public class Card {
 
     public void setType2(String type2) {
         this.type2 = type2;
-    }
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
