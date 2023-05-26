@@ -21,6 +21,12 @@ public class CardController {
     CardServiceImpl cardDAO;
 
     // Afficher carte
+    @RequestMapping(value = { "/"}, method = RequestMethod.GET)
+    public String home() {
+        return "emptyView";
+    }
+
+    // Afficher carte
     @RequestMapping(value = { "/view"}, method = RequestMethod.GET)
     public String view(Model model) {
         model.addAttribute("myCard", cardDAO.getRandomCard());

@@ -29,13 +29,15 @@ public class CardServiceImpl implements CardService {
 
     public Card getRandomCard(){
         List<Card> cardList = this.cardRepository.findAll();
+        if(cardList.size() == 0)
+            return null;
         int index = randomGenerator.nextInt(cardList.size());
         return cardList.get(index);
     }
 
-    public Card addCard(int id, float price, String name, String description, String imgUrl, String type1,
+    public Card addCard(float price, String name, String description, String imgUrl, String type1,
                         String type2, int hp, int attack, int defense) {
-        Card c = new Card(id, price, name, description, imgUrl, type1, type2, hp, attack, defense);
+        Card c = new Card(price, name, description, imgUrl, type1, type2, hp, attack, defense);
         return this.cardRepository.save(c);
     }
 }
