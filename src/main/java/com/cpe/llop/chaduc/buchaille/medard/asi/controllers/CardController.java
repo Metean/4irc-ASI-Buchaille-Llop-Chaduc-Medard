@@ -1,6 +1,7 @@
 package com.cpe.llop.chaduc.buchaille.medard.asi.controllers;
 
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.Card;
+import com.cpe.llop.chaduc.buchaille.medard.asi.services.CardServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.CardFormDTO;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,7 +19,7 @@ import java.util.List;
 public class CardController {
 
     @Autowired
-    CardDAO cardDAO;
+    CardServiceImpl cardDAO;
 
     // Accueil
     @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
