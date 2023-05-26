@@ -10,6 +10,8 @@ public class Card {
     private float price;
     private String name;
     private String description;
+    @Lob
+    @Column(name="CONTENT", length=512)
     private String imgUrl;
     private String type1;
     private String type2;

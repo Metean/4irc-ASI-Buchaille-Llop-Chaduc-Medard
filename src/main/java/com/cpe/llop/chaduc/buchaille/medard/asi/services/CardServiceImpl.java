@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class CardServiceImpl implements CardService {
 
-    private Random randomGenerator;
-    private CardRepository cardRepository;
+    private final Random randomGenerator;
+    private final CardRepository cardRepository;
 
     public CardServiceImpl(CardRepository cardRepository) {
         randomGenerator = new Random();
