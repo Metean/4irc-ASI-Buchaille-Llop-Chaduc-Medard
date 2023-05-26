@@ -2,10 +2,10 @@ package com.cpe.llop.chaduc.buchaille.medard.asi.controllers;
 
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.Card;
 import com.cpe.llop.chaduc.buchaille.medard.asi.services.CardService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.cpe.llop.chaduc.buchaille.medard.asi.services.MarketService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,13 +13,29 @@ import java.util.List;
 @RequestMapping("/market")
 public class MarketController {
 
-    private final CardService cardDAO;
-    public MarketController(CardService cardDAO){
-        this.cardDAO = cardDAO;
+    private final CardService cardService;
+    private final MarketService marketService;
+
+    public MarketController(CardService cardDAO, MarketService marketService) {
+        this.marketService = marketService;
+        this.cardService = cardDAO;
     }
 
     @GetMapping("/getAllCards")
     public List<Card> GetAllCards() {
-        return cardDAO.getCardList();
+        return cardService.getCardList();
     }
+
+    @GetMapping("/getAvaibleCards")
+    public List<Card> GetAvailable() {
+        return marketService.GetAvailableCards();
+    }
+
+    @PostMapping("/sell")
+    public ResponseEntity SellCard(@RequestParam("username") String username, @RequestParam("CardId") Long cardId) {
+        return marketService.SellCard(cardId, username) ? (ResponseEntity) ResponseEntity.ok() : new ResponseEntity<>("Card does not exist", HttpStatus.FORBIDDEN);
+
+
+    }
+
 }

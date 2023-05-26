@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface MarketService {
     public List<Card> GetAvailableCards();
-    public void SellCard(Long cardId, String username);
+    public boolean SellCard(Long cardId, String username);
     public void BuyCard(Long cardId, String username);
 }
