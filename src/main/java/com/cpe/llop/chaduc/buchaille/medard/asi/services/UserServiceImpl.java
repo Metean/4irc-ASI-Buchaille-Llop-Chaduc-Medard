@@ -18,48 +18,34 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-    //TODO: report the logic from the user controller here, (with the connection to the database)
     @Override
-    public User getUser(@RequestParam("userId") Long userId) {
+    public User getUser(Long userId) {
         Optional<User> u = userRepository.findById(userId);
         return u.orElse(null);
     }
 
+    public User getUser(String username) {
+        return userRepository.findByUsername(username);
+    }
 
-    public User addUser(@RequestBody UserFormDTO userForm) {
-        User u = new User(userForm.getUsername(), userForm.getPassword(), userForm.getEmail());
+    public User addUser(String username, String password, String email) {
+        User u = new User(username, password, email);
         userRepository.save(u);
         return u;
     }
 
-    public void setUserMoney(UserMoneyFormDTO userMoneyForm) {
-        User u = this.getUser(userMoneyForm.getUserId());
-        u.setMoney(userMoneyForm.getMoney());
+    public void addUserMoney(@RequestParam("username") String username, @RequestParam("amount") Double amount) {
+        User u = userRepository.findByUsername(username);
+        u.setMoney(u.getMoney() + amount);
         userRepository.save(u);
     }
 
-    public void addUserCard(/*@RequestBody AddUserCardRequest addUserCardRequest*/) {
+    public User login(String username, String password) {
+        User user = userRepository.findByUsername(username);
 
-    }
+        if (user != null && password.equals(user.getPassword()))
+            return user;
 
-    public void removeUserCard(/*@RequestBody RemoveUserCardRequest removeUserCardRequest*/) {
-
-    }
-
-    public User checkUser(UserFormDTO userForm) {
-        User u = userRepository.findByUsername(userForm.getUsername());
-        if(u == null) {
-            return null;
-        }
-        if(u.getPassword().equals(userForm.getPassword())) {
-            return u;
-        }
         return null;
-    }
-
-    public User removeUserCard(Long userId) {
-        User user = userRepository.getReferenceById(userId);
-        userRepository.delete(user);
-        return user;
     }
 }
