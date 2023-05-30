@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@ApiRestController("/market")
+@ApiRestController()
 public class MarketController {
 
     private final CardService cardService;
@@ -21,22 +21,22 @@ public class MarketController {
         this.cardService = cardDAO;
     }
 
-    @GetMapping("/getAllCards")
+    @GetMapping("/market/getAllCards")
     public List<Card> GetAllCards() {
         return cardService.getCardList();
     }
 
-    @GetMapping("/getAvailableCards")
+    @GetMapping("/market/getAvailableCards")
     public List<Card> GetAvailable() {
         return marketService.GetAvailableCards();
     }
 
-    @PostMapping("/sell")
+    @PostMapping("/market/sell")
     public ResponseEntity SellCard(@RequestParam("username") String username, @RequestParam("CardId") Long cardId) {
         return marketService.SellCard(cardId, username) ? (ResponseEntity) ResponseEntity.ok() : new ResponseEntity<>("Card does not exist or user does not have required money", HttpStatus.FORBIDDEN);
     }
 
-    @PostMapping("/buy")
+    @PostMapping("/market/buy")
     public ResponseEntity BuyCard(@RequestParam("username") String username, @RequestParam("CardId") Long cardId) {
         return marketService.BuyCard(cardId, username) ? (ResponseEntity) ResponseEntity.ok() : new ResponseEntity<>("Card does not exist", HttpStatus.FORBIDDEN);
     }
