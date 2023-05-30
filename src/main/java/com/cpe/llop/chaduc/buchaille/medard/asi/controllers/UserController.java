@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@ApiRestController("/user")
+@ApiRestController()
 public class UserController {
 
     private final UserService userService;
