@@ -26,9 +26,10 @@ public class PokemonImporter {
             File fileResource = ResourceUtils.getFile("classpath:static/pokemons.json");
 
             ObjectMapper objectMapper = new ObjectMapper();
-            List<Card> cards = objectMapper.readValue(fileResource, new TypeReference<>() {});
+            pokemonCards = objectMapper.readValue(fileResource, new TypeReference<>() {});
 
-            log.info(cards.toString());
+            log.info(pokemonCards.toString());
+
         } catch (Exception e) {
             log.error("Error caused by " + e.toString());
         }
