@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>HEADER</title>
+</head>
+<body>
+  <div th:fragment="header" class="header">
+    <div class="header__button">
+      <a class="header__link" th:href="@{/}">Toutes les cartes</a>
+    </div>
+
+    <div class="header__button">
+      <a class="header__link" th:href="@{/addCard}">Ajouter une carte</a>
+    </div>
+
+    <div class="header__button">
+      <a class="header__link" th:href="@{/register}">Inscription</a>
+    </div>
+  </div>
+</body>
+</html>

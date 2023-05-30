@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>USER</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+</head>
+<body>
+<div>
+  <div th:replace="fragments/header :: header">
+    <h1> THIS IS A DEFAULT HEADER</h1>
+  </div>
+  <h3 th:utext="${user.username}">...</h3>
+
+  <h5 th:text="'Email:  ' + ${user.email}">...</h5>
+  <h5 th:text="'Password:  ' + ${user.password}">...</h5>
+  <h5 th:text="'Money:  ' + ${user.money} + '$'">...</h5>
+
+  <div>
+    <a th:href="@{/user/{id}/money(id=${user.id})}" class="btn btn-primary">Add money</a>
+    <a th:href="@{/user/{id}/money(id=${user.id})}" class="btn btn-primary">See cards</a>
+  </div>
+</div>
+</body>
+
+</html>

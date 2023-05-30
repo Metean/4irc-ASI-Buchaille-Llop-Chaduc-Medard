@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" data-th-href="@{/css/style.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/formStyle.css" data-th-href="@{/css/formStyle.css}" />
+</head>
+
+<body>
+<div th:replace="fragments/header :: header">
+    <h1> THIS IS A DEFAULT HEADER</h1>
+</div>
+<form th:action="@{/register}"
+      th:object="${userForm}"
+      method="POST">
+    <fieldset>
+        <legend>S'inscrire</legend>
+
+        <div class="form__line">
+            <label for="form-name">Nom d'utilisateur</label>
+            <div>
+                <input
+                        id="form-name"
+                        type="text"
+                        name="name"
+                        placeholder="Your user name.."
+                        th:field="*{username}"
+                >
+            </div>
+        </div>
+
+        <div class="form__line">
+            <label for="form-email">Email</label>
+            <div>
+                <input
+                        id="form-email"
+                        type="email"
+                        name="email"
+                        placeholder="Your email.."
+                        th:field="*{email}">
+            </div>
+        </div>
+
+        <div class="form__line">
+            <label for="form-password">Mot de passe</label>
+            <div>
+                <input
+                        id="form-password"
+                        type="password"
+                        name="password"
+                        placeholder="Your password.."
+                        th:field="*{password}">
+            </div>
+        </div>
+
+        <div>
+            <input type="submit"
+                   class="uk-button uk-button-default"
+                   value="Register">
+        </div>
+    </fieldset>
+</form>
+<div>
+    <a th:href="@{/login}" class="btn btn-primary">Login</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+version: '3'
+services:
+  front:
+    build:
+      context: ./app-front
+      dockerfile: Dockerfile
+    ports:
+      - "80:8080"
+    depends_on:
+      - user-service
+      - card-service
+      - authentication-service
+      - market-service
+
+  authentication-service:
+    build:
+        context: ./authentication-service
+        dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - SERVER_PORT=8081
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=mydb
+      - DB_USERNAME=root
+      - DB_PASSWORD=toto
+    depends_on:
+      - db
+
+  card-service:
+    build:
+      context: ./card-service
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      - SERVER_PORT=8082
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=mydb
+      - DB_USERNAME=root
+      - DB_PASSWORD=toto
+    depends_on:
+      - db
+
+  market-service:
+    build:
+      context: ./market-service
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    environment:
+      - SERVER_PORT=8083
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=mydb
+      - DB_USERNAME=root
+      - DB_PASSWORD=toto
+    depends_on:
+      - db
+
+  user-service:
+    build:
+        context: ./user-service
+        dockerfile: Dockerfile
+    ports:
+      - "8084:8084"
+    environment:
+      - SERVER_PORT=8081
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=mydb
+      - DB_USERNAME=root
+      - DB_PASSWORD=toto
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=users
+      - MYSQL_DATABASE=cards
+      - MYSQL_DATABASE=transactions
+    volumes:
+      - ./data:/var/lib/mysql
