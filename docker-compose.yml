@@ -26,7 +26,7 @@ services:
       - DB_PORT=3306
       - DB_NAME=card_database
       - DB_USERNAME=root
-#      - DB_PASSWORD=""
+      - DB_PASSWORD=toto
     depends_on:
       - db
     networks:
@@ -44,7 +44,7 @@ services:
       - DB_PORT=3306
       - DB_NAME=card_database
       - DB_USERNAME=root
-#      - DB_PASSWORD=""
+      - DB_PASSWORD=toto
     depends_on:
       - db
     networks:
@@ -62,7 +62,7 @@ services:
       - DB_PORT=3306
       - DB_NAME=card_database
       - DB_USERNAME=root
-#      - DB_PASSWORD=""
+      - DB_PASSWORD=toto
     depends_on:
       - db
     networks:
@@ -80,7 +80,7 @@ services:
       - DB_PORT=3306
       - DB_NAME=card_database
       - DB_USERNAME=root
-#      - DB_PASSWORD=""
+      - DB_PASSWORD=toto
     depends_on:
       - db
     networks:
@@ -93,11 +93,10 @@ services:
       - MYSQL_ROOT_PASSWORD=toto
       - MYSQL_USER=user
       - MYSQL_PASSWORD=user_password
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
     ports:
       - "3306:3306"
-    volumes:
-      - ./data:/var/lib/mysql
+#    volumes:
+#      - ./data:/var/lib/mysql
     networks:
       - APIGateway
 
