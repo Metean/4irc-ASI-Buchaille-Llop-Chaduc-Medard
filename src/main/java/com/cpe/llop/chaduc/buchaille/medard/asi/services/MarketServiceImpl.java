@@ -30,9 +30,9 @@ public class MarketServiceImpl implements MarketService {
     }
 
     @Override
-    public boolean SellCard(Long cardId, String username) {
+    public boolean SellCard(Long cardId, Long userId) {
         Card c = cardRepository.getReferenceById(cardId);
-        User u = userRepository.findByUsername(username);
+        User u = userRepository.getReferenceById(userId);
 
         c.setUser(null);
         u.setMoney(u.getMoney() + c.getPrice());
@@ -41,9 +41,9 @@ public class MarketServiceImpl implements MarketService {
     }
 
     @Override
-    public boolean BuyCard(Long cardId, String username) {
+    public boolean BuyCard(Long cardId, Long userId) {
         Card c = cardRepository.getReferenceById(cardId);
-        User u = userRepository.findByUsername(username);
+        User u = userRepository.getReferenceById(userId);
 
         if(u.getMoney() < c.getPrice())
             return false;

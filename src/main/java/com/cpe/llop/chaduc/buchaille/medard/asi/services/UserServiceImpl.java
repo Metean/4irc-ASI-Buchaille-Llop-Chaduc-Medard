@@ -1,13 +1,13 @@
 package com.cpe.llop.chaduc.buchaille.medard.asi.services;
 
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.User;
-import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.UserFormDTO;
-import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.UserMoneyFormDTO;
 import com.cpe.llop.chaduc.buchaille.medard.asi.repositories.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,6 +24,16 @@ public class UserServiceImpl implements UserService {
         return u.orElse(null);
     }
 
+    @Override
+    public Page<User> getUsers(Integer page, Integer size) {
+        return userRepository.findAll(PageRequest.of(page, size));
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return userRepository.findAll();
+    }
+
     public User getUser(String username) {
         return userRepository.findByUsername(username);
     }
@@ -34,8 +44,8 @@ public class UserServiceImpl implements UserService {
         return u;
     }
 
-    public void addUserMoney(@RequestParam("username") String username, @RequestParam("amount") Double amount) {
-        User u = userRepository.findByUsername(username);
+    public void addUserMoney(@RequestParam Long id, @RequestParam Double amount) {
+        User u = userRepository.getReferenceById(id);
         u.setMoney(u.getMoney() + amount);
         userRepository.save(u);
     }
