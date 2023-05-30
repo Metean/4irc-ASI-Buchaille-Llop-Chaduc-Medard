@@ -4,11 +4,13 @@ import com.cpe.llop.chaduc.buchaille.medard.asi.annotations.ApiRestController;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.Card;
 import com.cpe.llop.chaduc.buchaille.medard.asi.services.CardService;
 import com.cpe.llop.chaduc.buchaille.medard.asi.services.MarketService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @ApiRestController()
 public class MarketController {
@@ -22,13 +24,20 @@ public class MarketController {
     }
 
     @GetMapping("/market/getAllCards")
-    public List<Card> GetAllCards() {
+    public Page<Card> GetAllCards(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
+        if (page.isPresent() && size.isPresent())
+            return cardService.getCardList(page.get(), size.get());
         return cardService.getCardList();
     }
 
     @GetMapping("/market/getAvailableCards")
     public List<Card> GetAvailable() {
         return marketService.GetAvailableCards();
+    }
+
+    @GetMapping("/market/getCard/{id}")
+    public Card GetAvailable(@PathVariable("id") Long id) {
+        return marketService.GetCard(id);
     }
 
     @PostMapping("/market/sell")
