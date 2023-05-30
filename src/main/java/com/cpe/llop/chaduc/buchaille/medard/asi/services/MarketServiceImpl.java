@@ -25,6 +25,11 @@ public class MarketServiceImpl implements MarketService {
     }
 
     @Override
+    public Card GetCard(Long cardId) {
+        return cardRepository.getReferenceById(cardId);
+    }
+
+    @Override
     public boolean SellCard(Long cardId, String username) {
         Card c = cardRepository.getReferenceById(cardId);
         User u = userRepository.findByUsername(username);

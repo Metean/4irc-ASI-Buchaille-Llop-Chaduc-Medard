@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("email") String email) {
+    public ResponseEntity<?> register(@RequestBody String username, @RequestBody String password, @RequestBody("email") String email) {
         User u = userService.addUser(username, password, email);
 
         if (u != null)
@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestParam("username") String username, @RequestParam("password") String password) {
+    public ResponseEntity<?> login(@RequestBody String username, @RequestBody String password) {
         User u = userService.login(username, password);
 
         if (u != null)
