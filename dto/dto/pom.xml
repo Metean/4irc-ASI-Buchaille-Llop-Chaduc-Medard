@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.cpe.llop.chaduc.buchaille.medard.asi.shared.dto</groupId>
 	<artifactId>dto</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>dto</name>
 	<description>dto library</description>
 	<properties>

@@ -75,6 +75,12 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.cpe.llop.chaduc.buchaille.medard.asi.shared.dto</groupId>
+            <artifactId>dto</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
