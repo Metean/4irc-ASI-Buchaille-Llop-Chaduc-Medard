@@ -1,5 +1,6 @@
 package com.cpe.llop.chaduc.buchaille.medard.asi.controllers;
 
+import com.cpe.llop.chaduc.buchaille.medard.asi.annotations.ApiRestController;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.User;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.UserFormDTO;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.UserMoneyFormDTO;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@RestController
+@ApiRestController("/user")
 public class UserController {
 
     private final UserService userService;

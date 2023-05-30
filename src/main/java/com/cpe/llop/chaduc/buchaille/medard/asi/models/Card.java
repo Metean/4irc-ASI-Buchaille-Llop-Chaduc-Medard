@@ -25,11 +25,11 @@ public class Card {
 
     public Card(){}
 
-    public Card( float price, String name, String description, String imgUrl, String type1, String type2, int hp, int attack, int defense) {
+    public Card( float price, String name, String description, String imageUrl, String type1, String type2, int hp, int attack, int defense) {
         this.price = price;
         this.name = name;
         this.description = description;
-        this.imageUrl = imgUrl;
+        this.imageUrl = imageUrl;
         this.type1 = type1;
         this.type2 = type2;
         this.hp = hp;
@@ -69,12 +69,12 @@ public class Card {
         this.description = description;
     }
 
-    public String getImageUrl() {
+    public String getimageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imgUrl) {
-        this.imageUrl = imgUrl;
+    public void setimageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public int getHp() {
