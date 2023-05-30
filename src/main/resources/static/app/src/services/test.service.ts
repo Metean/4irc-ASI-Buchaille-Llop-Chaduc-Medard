@@ -6,9 +6,9 @@ import axios from 'axios'
 // import { AuthenticationService } from './authentication.service'
 
 class TestService {
-	async getObjectFields(objectApiName: string): Promise<any> {
+	async getTest(): Promise<any> {
 		return axios
-			.get(`127.0.0.1:8080/market/getAvaibleCards`)
+			.get('http://127.0.0.1:8080/api/getAllCards')
 			.then(({ data }) => {
 				return data
 			})

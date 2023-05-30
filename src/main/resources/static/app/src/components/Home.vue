@@ -1,5 +1,6 @@
 <template>
 	<div>HOME</div>
+	{{ msg }}
 
 	<button @click="$router.push('/buy')">Acheter</button>
 	<button @click="$router.push('/sell')">Vendre</button>
@@ -9,6 +10,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import Register from './user/Register.vue'
+import testService from '@/services/test.service'
 
 @Options({
 	components: {
@@ -20,6 +22,21 @@ import Register from './user/Register.vue'
 })
 export default class Home extends Vue {
 	msg!: string
+
+	mounted() {
+		this.test()
+	}
+
+	public async test(): Promise<void> {
+		await testService
+			.getTest()
+			.then((response: any) => {
+				console.log(response)
+			})
+			.catch((error) => {
+				console.error(error)
+			})
+	}
 }
 </script>
 

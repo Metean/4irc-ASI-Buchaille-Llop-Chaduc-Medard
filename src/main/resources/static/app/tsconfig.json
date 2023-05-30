@@ -13,13 +13,13 @@
 		"forceConsistentCasingInFileNames": true,
 		"useDefineForClassFields": true,
 		"sourceMap": true,
-		"baseUrl": "./",
+		"baseUrl": ".",
 		"types": ["webpack-env"],
 		"paths": {
 			"@/*": ["src/*"]
 		},
 		"lib": ["esnext", "dom", "dom.iterable", "scripthost"]
 	},
-	"include": ["app/src/**/*.ts", "app/src/**/*.tsx", "app/src/**/*.vue", "tests/**/*.ts", "tests/**/*.tsx"],
+	"include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "tests/**/*.ts", "tests/**/*.tsx"],
 	"exclude": ["node_modules"]
 }
