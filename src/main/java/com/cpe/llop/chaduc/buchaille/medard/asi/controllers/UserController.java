@@ -5,7 +5,10 @@ import com.cpe.llop.chaduc.buchaille.medard.asi.models.User;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.UserFormDTO;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.UserMoneyFormDTO;
 import com.cpe.llop.chaduc.buchaille.medard.asi.services.UserService;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,82 +20,50 @@ import org.slf4j.LoggerFactory;
 public class UserController {
 
     private final UserService userService;
-
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/user/{id}")
-    public String getUser(@NotNull Model model, @PathVariable("id") Long id) {
-        User ret = this.userService.getUser(id);
-        if(ret == null) {
-            return "redirect:/login";
-        }
-        model.addAttribute("user", ret);
-        return "userView";
-    }
-
-    @GetMapping("/register")
-    public String registerView(@NotNull Model model) {
-        UserFormDTO userForm = new UserFormDTO();
-        model.addAttribute("userForm", userForm);
-        return "userRegisterForm";
+    @GetMapping("/user/{username}")
+    public User getUser(@RequestParam("username") String username) {
+        return userService.getUser(username);
     }
 
     @PostMapping("/register")
-    public String register(UserFormDTO userForm) {
-        User u = this.userService.addUser(userForm);
-        return  "redirect:/user/" + u.getId();
-    }
+    public ResponseEntity<?> register(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("email") String email) {
+        User u = userService.addUser(username, password, email);
 
+        if (u != null)
+            return new ResponseEntity<>(u, HttpStatus.OK);
 
-    @GetMapping("/login")
-    public String loginView(@NotNull Model model) {
-        UserFormDTO userForm = new UserFormDTO();
-        model.addAttribute("userForm", userForm);
-        return "userLoginForm";
+        return new ResponseEntity<>("Username already exists", HttpStatus.FORBIDDEN);
     }
 
     @PostMapping("/login")
-    public String login(UserFormDTO userForm) {
-        User u = this.userService.checkUser(userForm);
-        return  "redirect:/user/" + u.getId();
+    public ResponseEntity<?> login(@RequestParam("username") String username, @RequestParam("password") String password) {
+        User u = userService.login(username, password);
+
+        if (u != null)
+            return new ResponseEntity<>(u, HttpStatus.OK);
+
+        return new ResponseEntity<>("wrong username or password", HttpStatus.FORBIDDEN);
     }
 
-    @GetMapping("/user/{id}/money")
-    public String userMoneyView(@NotNull Model model, @PathVariable("id") Long id) {
-        User u = this.userService.getUser(id);
-        if(u == null) {
-            return "redirect:/login";
-        }
-        UserMoneyFormDTO userMoneyForm = new UserMoneyFormDTO();
-        model.addAttribute("user", u);
-        model.addAttribute("userMoneyForm", userMoneyForm);
-        return "userMoneyForm";
+    @GetMapping("/user/{username}/money")
+    public ResponseEntity<?> getUserMoney(@RequestParam("username") String username) {
+        User u = userService.getUser(username);
+        if (u != null)
+            return new ResponseEntity<>(u.getMoney(), HttpStatus.OK);
+
+        return new ResponseEntity<>("user does not exist", HttpStatus.FORBIDDEN);
     }
 
-    @PostMapping("/user/{id}/money")
-    public String userMoneyView(@NotNull Model model, @PathVariable("id") Long id, UserMoneyFormDTO userMoneyForm) {
-        User u = this.userService.getUser(id);
-        if(u == null) {
-            return "redirect:/login";
-        }
-        userMoneyForm.setMoney(userMoneyForm.getMoney() + u.getMoney());
-        userMoneyForm.setUserId(u.getId());
-        this.userService.setUserMoney(userMoneyForm);
-        return "redirect:/user/" + id;
-    }
-
-    @PostMapping("/user/card/add")
-    public void addUserCard(/*@RequestBody AddUserCardRequest addUserCardRequest*/) {
-        // Implement addUserCard logic using the userService
-    }
-
-    @PostMapping("/user/card/remove")
-    public void removeUserCard(/*@RequestBody RemoveUserCardRequest removeUserCardRequest*/) {
-        // Implement removeUserCard logic using the userService
+    @PostMapping("/user/{username}/money/add")
+    public User addUserMoney(@RequestParam("username") String username, @RequestParam("amount") Double amount) {
+        userService.addUserMoney(username, amount);
+        return userService.getUser(username);
     }
 }
 
