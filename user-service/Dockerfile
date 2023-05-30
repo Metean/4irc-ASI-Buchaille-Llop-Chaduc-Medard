@@ -21,7 +21,7 @@ COPY ./src ./src
 RUN mvn clean package -DskipTests
 
 # Stage 3: Copy the artifact and run
-FROM openjdk:17-jre-slim
+FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 COPY --from=app-builder /app/target/asi-0.0.1-SNAPSHOT.jar ./app.jar
