@@ -1,12 +1,18 @@
 package com.cpe.llop.chaduc.buchaille.medard.asi.services;
 
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import com.cpe.llop.chaduc.buchaille.medard.asi.importer.PokemonImporter;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.Card;
 import com.cpe.llop.chaduc.buchaille.medard.asi.repositories.CardRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,8 +29,12 @@ public class CardServiceImpl implements CardService {
             this.cardRepository.saveAll(new PokemonImporter().getPokemonCards());
     }
 
-    public List<Card> getCardList() {
-        return this.cardRepository.findAll();
+    public Page<Card> getCardList() {
+        return this.cardRepository.findAll(PageRequest.of(0, 100));
+    }
+
+    public Page<Card> getCardList(Integer page, Integer size) {
+        return this.cardRepository.findAll(PageRequest.of(page, size));
     }
 
     public Card getCard(int id){
