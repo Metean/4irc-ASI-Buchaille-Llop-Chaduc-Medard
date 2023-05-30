@@ -69,11 +69,11 @@ public class Card {
         this.description = description;
     }
 
-    public String getimageUrl() {
+    public String getImageUrl() {
         return imageUrl;
     }
 
-    public void setimageUrl(String imageUrl) {
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
