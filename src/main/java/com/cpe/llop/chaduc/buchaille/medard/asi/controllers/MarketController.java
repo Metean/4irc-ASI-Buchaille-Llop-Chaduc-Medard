@@ -26,16 +26,18 @@ public class MarketController {
         return cardService.getCardList();
     }
 
-    @GetMapping("/getAvaibleCards")
+    @GetMapping("/getAvailableCards")
     public List<Card> GetAvailable() {
         return marketService.GetAvailableCards();
     }
 
     @PostMapping("/sell")
     public ResponseEntity SellCard(@RequestParam("username") String username, @RequestParam("CardId") Long cardId) {
-        return marketService.SellCard(cardId, username) ? (ResponseEntity) ResponseEntity.ok() : new ResponseEntity<>("Card does not exist", HttpStatus.FORBIDDEN);
-
-
+        return marketService.SellCard(cardId, username) ? (ResponseEntity) ResponseEntity.ok() : new ResponseEntity<>("Card does not exist or user does not have required money", HttpStatus.FORBIDDEN);
     }
 
+    @PostMapping("/buy")
+    public ResponseEntity BuyCard(@RequestParam("username") String username, @RequestParam("CardId") Long cardId) {
+        return marketService.BuyCard(cardId, username) ? (ResponseEntity) ResponseEntity.ok() : new ResponseEntity<>("Card does not exist", HttpStatus.FORBIDDEN);
+    }
 }
