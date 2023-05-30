@@ -18,21 +18,25 @@ public class CardSerializer extends JsonSerializer<Card> {
         jsonGenerator.writeStartObject();
 
         jsonGenerator.writeNumberField("id", card.getId());
+        jsonGenerator.writeNumberField("price", card.getPrice());
         jsonGenerator.writeStringField("name", card.getName());
+        jsonGenerator.writeStringField("description", card.getDescription());
+
+        jsonGenerator.writeStringField("imageUrl", card.getImageUrl());
 
         jsonGenerator.writeNumberField("health", card.getHp());
         jsonGenerator.writeNumberField("attack", card.getAttack());
         jsonGenerator.writeNumberField("defense", card.getDefense());
 
-        /*
-        jsonGenerator.writeNumberField("type1", card.getType1());
+
+        jsonGenerator.writeStringField("type1", card.getType1());
 
         if (card.getType2() != null) {
-            jsonGenerator.writeNumberField("type2", card.getType2());
+            jsonGenerator.writeStringField("type2", card.getType2());
         } else {
             jsonGenerator.writeNullField("type2");
         }
-        */
+
 
         jsonGenerator.writeEndObject();
     }

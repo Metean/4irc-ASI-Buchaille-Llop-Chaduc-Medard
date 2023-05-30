@@ -29,16 +29,22 @@ public class MarketServiceImpl implements MarketService {
         Card c = cardRepository.getReferenceById(cardId);
         User u = userRepository.findByUsername(username);
 
+        c.setUser(null);
+        u.setMoney(u.getMoney() + c.getPrice());
+        cardRepository.save(c);
+        return true;
+    }
+
+    @Override
+    public boolean BuyCard(Long cardId, String username) {
+        Card c = cardRepository.getReferenceById(cardId);
+        User u = userRepository.findByUsername(username);
+
         if(u.getMoney() < c.getPrice())
             return false;
 
         c.setUser(u);
         cardRepository.save(c);
         return true;
-    }
-
-    @Override
-    public void BuyCard(Long cardId, String username) {
-
     }
 }
