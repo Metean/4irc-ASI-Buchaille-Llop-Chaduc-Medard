@@ -1,5 +1,6 @@
 package com.cpe.llop.chaduc.buchaille.medard.asi.controllers;
 
+import com.cpe.llop.chaduc.buchaille.medard.asi.annotations.ApiRestController;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.Card;
 import com.cpe.llop.chaduc.buchaille.medard.asi.services.CardService;
 import com.cpe.llop.chaduc.buchaille.medard.asi.services.CardServiceImpl;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 import java.util.List;
 
-@RestController
+@ApiRestController("/card")
 public class CardController {
 
     CardService cardDAO;
