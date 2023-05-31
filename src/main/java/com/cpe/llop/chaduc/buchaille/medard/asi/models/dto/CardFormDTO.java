@@ -1,12 +1,7 @@
 package com.cpe.llop.chaduc.buchaille.medard.asi.models.dto;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class CardFormDTO {
 
-    private int id;
     private float price;
     private String name;
     private String description;
@@ -18,7 +13,6 @@ public class CardFormDTO {
     private int defense;
 
     public CardFormDTO() {
-        this.id = 0;
         this.price = 0;
         this.name = "";
         this.description = "";
@@ -30,8 +24,7 @@ public class CardFormDTO {
         this.defense = 0;
     }
 
-    public CardFormDTO(int id, float price, String name, String description, String imgUrl, String type1, String type2, int hp, int attack, int defense) {
-        this.id = id;
+    public CardFormDTO(float price, String name, String description, String imgUrl, String type1, String type2, int hp, int attack, int defense) {
         this.price = price;
         this.name = name;
         this.description = description;
@@ -43,13 +36,6 @@ public class CardFormDTO {
         this.defense = defense;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public float getPrice() {
         return price;
