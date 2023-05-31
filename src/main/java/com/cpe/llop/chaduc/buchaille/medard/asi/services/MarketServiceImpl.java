@@ -13,10 +13,13 @@ public class MarketServiceImpl implements MarketService {
 
     private final CardRepository cardRepository;
     private final UserRepository userRepository;
+    private final MapperService mapperService;
 
-    public MarketServiceImpl(CardRepository cardRepository, UserRepository userRepository) {
+    public MarketServiceImpl(CardRepository cardRepository, UserRepository userRepository, MapperService mapperService) {
         this.cardRepository = cardRepository;
         this.userRepository = userRepository;
+        this.mapperService = mapperService;
+
     }
 
     @Override
@@ -45,7 +48,7 @@ public class MarketServiceImpl implements MarketService {
         Card c = cardRepository.getReferenceById(cardId);
         User u = userRepository.getReferenceById(userId);
 
-        if(u.getMoney() < c.getPrice())
+        if (u.getMoney() < c.getPrice())
             return false;
 
         c.setUser(u);

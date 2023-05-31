@@ -1,38 +1,30 @@
 package com.cpe.llop.chaduc.buchaille.medard.asi.services;
 
-import java.util.List;
-import java.util.Random;
-
-
 import com.cpe.llop.chaduc.buchaille.medard.asi.importer.PokemonImporter;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.Card;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.CardFormDTO;
 import com.cpe.llop.chaduc.buchaille.medard.asi.repositories.CardRepository;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.config.Configuration;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Random;
 
 @Service
 public class CardServiceImpl implements CardService {
 
     private final Random randomGenerator;
     private final CardRepository cardRepository;
-    private final ModelMapper modelMapper;
+    private final MapperService mapperService;
 
-    public CardServiceImpl(CardRepository cardRepository) {
+    public CardServiceImpl(CardRepository cardRepository, MapperService mapperService) {
         randomGenerator = new Random();
         this.cardRepository = cardRepository;
+        this.mapperService = mapperService;
 
-        modelMapper = new ModelMapper();
-        modelMapper.getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.STANDARD)
-                .setFieldMatchingEnabled(true)
-                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
 
-        if(this.cardRepository.findAll().isEmpty())
+        if (this.cardRepository.findAll().isEmpty())
             this.cardRepository.saveAll(new PokemonImporter().getPokemonCards());
     }
 
@@ -44,13 +36,13 @@ public class CardServiceImpl implements CardService {
         return this.cardRepository.findAll(PageRequest.of(page, size));
     }
 
-    public Card getCard(int id){
+    public Card getCard(int id) {
         return this.cardRepository.findById((long) id).orElse(null);
     }
 
-    public Card getRandomCard(){
+    public Card getRandomCard() {
         List<Card> cardList = this.cardRepository.findAll();
-        if(cardList.size() == 0)
+        if (cardList.size() == 0)
             return null;
         int index = randomGenerator.nextInt(cardList.size());
         return cardList.get(index);
@@ -66,7 +58,6 @@ public class CardServiceImpl implements CardService {
     public boolean updateItem(Long cardId, CardFormDTO cardFormDTO) {
         Card c = cardRepository.getReferenceById(cardId);
 
-        modelMapper.map(cardFormDTO, c);
 
         cardRepository.save(c);
         return true;
@@ -76,7 +67,7 @@ public class CardServiceImpl implements CardService {
     public boolean createItem(CardFormDTO cardFormDTO) {
         Card c = new Card();
 
-        modelMapper.map(cardFormDTO, c);
+        mapperService.map(cardFormDTO, c);
 
         cardRepository.save(c);
         return true;
