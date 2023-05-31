@@ -17,7 +17,7 @@ COPY ./user-service/pom.xml ./pom.xml
 COPY ./user-service/src ./src
 
 # Build the main project with the dependencies
-RUN mvn clean package  -DskipTests
+RUN mvn clean package -DskipTests
 
 # Stage 2: Copy the artifact and run
 FROM openjdk:17-jdk-slim as app-runner
