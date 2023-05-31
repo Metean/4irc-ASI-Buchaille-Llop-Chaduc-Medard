@@ -1,18 +1,18 @@
 package com.cpe.llop.chaduc.buchaille.medard.asi.services;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+
 
 import com.cpe.llop.chaduc.buchaille.medard.asi.importer.PokemonImporter;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.Card;
+import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.CardFormDTO;
 import com.cpe.llop.chaduc.buchaille.medard.asi.repositories.CardRepository;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.config.Configuration;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,11 +20,18 @@ public class CardServiceImpl implements CardService {
 
     private final Random randomGenerator;
     private final CardRepository cardRepository;
+    private final ModelMapper modelMapper;
 
     public CardServiceImpl(CardRepository cardRepository) {
         randomGenerator = new Random();
         this.cardRepository = cardRepository;
-        
+
+        modelMapper = new ModelMapper();
+        modelMapper.getConfiguration()
+                .setMatchingStrategy(MatchingStrategies.STANDARD)
+                .setFieldMatchingEnabled(true)
+                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
+
         if(this.cardRepository.findAll().isEmpty())
             this.cardRepository.saveAll(new PokemonImporter().getPokemonCards());
     }
@@ -53,5 +60,25 @@ public class CardServiceImpl implements CardService {
                         String type2, int hp, int attack, int defense) {
         Card c = new Card(price, name, description, imgUrl, type1, type2, hp, attack, defense);
         return this.cardRepository.save(c);
+    }
+
+    @Override
+    public boolean updateItem(Long cardId, CardFormDTO cardFormDTO) {
+        Card c = cardRepository.getReferenceById(cardId);
+
+        modelMapper.map(cardFormDTO, c);
+
+        cardRepository.save(c);
+        return true;
+    }
+
+    @Override
+    public boolean createItem(CardFormDTO cardFormDTO) {
+        Card c = new Card();
+
+        modelMapper.map(cardFormDTO, c);
+
+        cardRepository.save(c);
+        return true;
     }
 }
