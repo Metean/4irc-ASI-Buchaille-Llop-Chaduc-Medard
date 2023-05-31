@@ -12,8 +12,8 @@ RUN mvn clean install
 WORKDIR /app
 
 # Copy your main project
-COPY ./market-service/pom.xml ./pom.xml
-COPY ./market-service/src ./src
+COPY ./game-service/pom.xml ./pom.xml
+COPY ./game-service/src ./src
 
 # Build the main project with the dependencies
 RUN mvn clean package  -DskipTests
