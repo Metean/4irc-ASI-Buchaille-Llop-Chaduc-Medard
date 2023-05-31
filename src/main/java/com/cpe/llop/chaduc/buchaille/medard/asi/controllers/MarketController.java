@@ -2,6 +2,7 @@ package com.cpe.llop.chaduc.buchaille.medard.asi.controllers;
 
 import com.cpe.llop.chaduc.buchaille.medard.asi.annotations.ApiRestController;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.Card;
+import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.CardFormDTO;
 import com.cpe.llop.chaduc.buchaille.medard.asi.services.CardService;
 import com.cpe.llop.chaduc.buchaille.medard.asi.services.MarketService;
 import org.slf4j.Logger;
@@ -9,10 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,7 +46,7 @@ public class MarketController {
 
 
     @PutMapping("market/{idCard}/{action}/")
-    public ResponseEntity<?> SellCard(@PathVariable Long idCard, @PathVariable String action,@RequestParam("idUser") Long idUser) {
+    public ResponseEntity<?> SellCard(@PathVariable Long idCard, @PathVariable String action, @RequestParam("idUser") Long idUser) {
 
         return switch (action) {
             case "sell" ->
@@ -57,7 +55,12 @@ public class MarketController {
                     marketService.BuyCard(idCard, idUser) ? (ResponseEntity<?>) ResponseEntity.ok() : new ResponseEntity<>("Card does not exist", HttpStatus.FORBIDDEN);
             default -> new ResponseEntity<>("`action` field must have sell or buy", HttpStatus.BAD_REQUEST);
         };
+    }
 
+    @PatchMapping("market/{idCard}/")
+    public ResponseEntity<?> CardEdit(@PathVariable Long idCard, @RequestBody CardFormDTO card) {
+        cardService.updateItem(idCard, card);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
