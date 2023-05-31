@@ -76,7 +76,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.cpe.llop.chaduc.buchaille.medard.shared.dto</groupId>
+            <groupId>com.cpe.vengaboys.asi.shared.dto</groupId>
             <artifactId>dto</artifactId>
             <version>1.0.0</version>
         </dependency>
