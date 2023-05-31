@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody String username, @RequestBody String password, @RequestBody("email") String email) {
+    public ResponseEntity<?> register(@RequestBody String username, @RequestBody String password, @RequestBody String email) {
         User u = userService.addUser(username, password, email);
 
         if (u != null)
