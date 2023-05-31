@@ -309,8 +309,8 @@
   },
   {
     "id": 29,
-    "name": "Nidoran♀",
-    "description": "Nidoran♀ is a Poison-type Pokémon known for its gentle nature and poisonous barbs.",
+    "name": "Nidoran (femelle)",
+    "description": "Nidoran (femelle) is a Poison-type Pokémon known for its gentle nature and poisonous barbs.",
     "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/29.png",
     "type1": "Poison",
     "type2": "",
@@ -321,7 +321,7 @@
   {
     "id": 30,
     "name": "Nidorina",
-    "description": "Nidorina is a Poison-type Pokémon. It evolves from Nidoran♀.",
+    "description": "Nidorina is a Poison-type Pokémon. It evolves from Nidoran (femelle).",
     "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/30.png",
     "type1": "Poison",
     "type2": "",
@@ -342,8 +342,8 @@
   },
   {
     "id": 32,
-    "name": "Nidoran♂",
-    "description": "Nidoran♂ is a Poison-type Pokémon known for its aggressive behavior and poisonous spines.",
+    "name": "Nidoran (male)",
+    "description": "Nidoran (male) is a Poison-type Pokémon known for its aggressive behavior and poisonous spines.",
     "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/32.png",
     "type1": "Poison",
     "type2": "",
@@ -354,7 +354,7 @@
   {
     "id": 33,
     "name": "Nidorino",
-    "description": "Nidorino is a Poison-type Pokémon. It evolves from Nidoran♂.",
+    "description": "Nidorino is a Poison-type Pokémon. It evolves from Nidoran (male).",
     "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/33.png",
     "type1": "Poison",
     "type2": "",
