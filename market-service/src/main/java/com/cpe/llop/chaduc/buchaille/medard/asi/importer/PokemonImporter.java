@@ -23,7 +23,8 @@ public class PokemonImporter {
 
     public PokemonImporter() {
         try {
-            File fileResource = ResourceUtils.getFile("classpath:json/pokemons.json");
+            InputStream fileResource = pokemonFile.getInputStream();
+            // File fileResource = ResourceUtils.getFile("classpath:json/pokemons.json");
 
             ObjectMapper objectMapper = new ObjectMapper();
             pokemonCards = objectMapper.readValue(fileResource, new TypeReference<>() {});
@@ -32,7 +33,6 @@ public class PokemonImporter {
         } catch (Exception e) {
             log.error("Error caused by " + e.toString());
         }
-
     }
 
     public List<Card> getPokemonCards() {
