@@ -1,11 +1,22 @@
 version: '3'
 services:
+# ---------------------------- PROXY ----------------------------
+  proxy:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    depends_on:
+      - front
+    ports:
+      - "80:80"
+    networks:
+      - APIGateway
+
+# ---------------------------- FRONT ----------------------------
   front:
     build:
       context: ./app-front
       dockerfile: Dockerfile
-    ports:
-      - "80:80"
     depends_on:
       - user-service
       - card-service
@@ -14,21 +25,22 @@ services:
     networks:
       - APIGateway
 
+# ---------------------------- SERVICES ----------------------------
   authentication-service:
     build:
         context: ./
         dockerfile: ./authentication-service/Dockerfile
-    ports:
-      - "8080:80"
     environment:
       - SERVER_PORT=80
-      - DB_HOST=db
+      - DB_HOST=db-authentication
       - DB_PORT=3306
-      - DB_NAME=card_database
+      - DB_NAME=authentication_database
       - DB_USERNAME=root
       - DB_PASSWORD=toto
+    volumes:
+      - maven-repo:/root/.m2
     depends_on:
-      - db
+      - db-authentication
     networks:
       - APIGateway
 
@@ -36,17 +48,17 @@ services:
     build:
       context: ./
       dockerfile: ./card-service/Dockerfile
-    ports:
-      - "8081:80"
     environment:
       - SERVER_PORT=80
-      - DB_HOST=db
+      - DB_HOST=db-card
       - DB_PORT=3306
       - DB_NAME=card_database
       - DB_USERNAME=root
       - DB_PASSWORD=toto
+    volumes:
+      - maven-repo:/root/.m2
     depends_on:
-      - db
+      - db-card
     networks:
       - APIGateway
 
@@ -54,17 +66,17 @@ services:
     build:
       context: ./
       dockerfile: ./game-service/Dockerfile
-    ports:
-      - "8082:80"
     environment:
       - SERVER_PORT=80
-      - DB_HOST=db
+      - DB_HOST=db-game
       - DB_PORT=3306
-      - DB_NAME=card_database
+      - DB_NAME=game_database
       - DB_USERNAME=root
       - DB_PASSWORD=toto
+    volumes:
+      - maven-repo:/root/.m2
     depends_on:
-      - db
+      - db-game
     networks:
       - APIGateway
 
@@ -72,34 +84,64 @@ services:
     build:
         context: ./
         dockerfile: ./user-service/Dockerfile
-    ports:
-      - "8083:80"
     environment:
       - SERVER_PORT=80
-      - DB_HOST=db
+      - DB_HOST=db-user
       - DB_PORT=3306
-      - DB_NAME=card_database
+      - DB_NAME=user_database
       - DB_USERNAME=root
       - DB_PASSWORD=toto
+    volumes:
+      - maven-repo:/root/.m2
     depends_on:
-      - db
+      - db-user
     networks:
       - APIGateway
 
-  db:
+# ---------------------------- DATABASES ----------------------------
+  db-authentication:
+    image: mysql:5.7
+    environment:
+      - MYSQL_DATABASE=authentication_database
+      - MYSQL_ROOT_PASSWORD=toto
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user_password
+    networks:
+      - APIGateway
+
+  db-card:
     image: mysql:5.7
     environment:
       - MYSQL_DATABASE=card_database
       - MYSQL_ROOT_PASSWORD=toto
       - MYSQL_USER=user
       - MYSQL_PASSWORD=user_password
-    ports:
-      - "3306:3306"
-#    volumes:
-#      - ./data:/var/lib/mysql
+    networks:
+      - APIGateway
+
+  db-game:
+    image: mysql:5.7
+    environment:
+      - MYSQL_DATABASE=game_database
+      - MYSQL_ROOT_PASSWORD=toto
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user_password
+    networks:
+      - APIGateway
+
+  db-user:
+    image: mysql:5.7
+    environment:
+      - MYSQL_DATABASE=user_database
+      - MYSQL_ROOT_PASSWORD=toto
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user_password
     networks:
       - APIGateway
 
 networks:
   APIGateway:
     driver: bridge
+
+volumes:
+  maven-repo:
