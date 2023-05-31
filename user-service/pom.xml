@@ -8,7 +8,7 @@
         <version>3.1.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.cpe.llop.chaduc.buchaille.medard</groupId>
+    <groupId>com.cpe.vengaboys</groupId>
     <artifactId>asi</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>asi</name>
@@ -75,11 +75,11 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.cpe.llop.chaduc.buchaille.medard.asi.shared.dto</groupId>
-            <artifactId>dto</artifactId>
-            <version>1.0.0</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.cpe.llop.chaduc.buchaille.medard.asi.shared.dto</groupId>-->
+<!--            <artifactId>dto</artifactId>-->
+<!--            <version>1.0.0</version>-->
+<!--        </dependency>-->
 
     </dependencies>
 
