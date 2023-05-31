@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{username}")
-    public User getUser(@RequestParam("username") String username) {
+    public User getUser(@PathVariable String username) {
         return userService.getUser(username);
     }
 
@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{username}/money")
-    public ResponseEntity<?> getUserMoney(@RequestParam("username") String username) {
+    public ResponseEntity<?> getUserMoney(@PathVariable String username) {
         User u = userService.getUser(username);
         if (u != null)
             return new ResponseEntity<>(u.getMoney(), HttpStatus.OK);
@@ -61,7 +61,7 @@ public class UserController {
     }
 
     @PostMapping("/user/{username}/money/add")
-    public User addUserMoney(@RequestParam("username") String username, @RequestParam("amount") Double amount) {
+    public User addUserMoney(@PathVariable String username, @RequestParam("amount") Double amount) {
         userService.addUserMoney(username, amount);
         return userService.getUser(username);
     }
