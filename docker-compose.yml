@@ -10,7 +10,7 @@ services:
       - user-service
       - card-service
       - authentication-service
-      - market-service
+      - game-service
     networks:
       - APIGateway
 
@@ -50,7 +50,7 @@ services:
     networks:
       - APIGateway
 
-  market-service:
+  game-service:
     build:
       context: ./
       dockerfile: ./market-service/Dockerfile
@@ -103,5 +103,3 @@ services:
 networks:
   APIGateway:
     driver: bridge
-
-#    SELECT user, host FROM mysql.user WHERE user = 'user';
