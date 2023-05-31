@@ -76,9 +76,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.cpe.llop.chaduc.buchaille.medard.asi.shared.dto</groupId>
+            <groupId>com.cpe.llop.chaduc.buchaille.medard.shared.dto</groupId>
             <artifactId>dto</artifactId>
-            <version>1.0.0</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
     </dependencies>

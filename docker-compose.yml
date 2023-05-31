@@ -16,8 +16,8 @@ services:
 
   authentication-service:
     build:
-        context: ./authentication-service
-        dockerfile: Dockerfile
+        context: ./
+        dockerfile: ./authentication-service/Dockerfile
     ports:
       - "8080:80"
     environment:
@@ -34,8 +34,8 @@ services:
 
   card-service:
     build:
-      context: ./card-service
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: ./card-service/Dockerfile
     ports:
       - "8081:80"
     environment:
@@ -52,8 +52,8 @@ services:
 
   market-service:
     build:
-      context: ./market-service
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: ./market-service/Dockerfile
     ports:
       - "8082:80"
     environment:
@@ -70,8 +70,8 @@ services:
 
   user-service:
     build:
-        context: ./user-service
-        dockerfile: Dockerfile
+        context: ./
+        dockerfile: ./user-service/Dockerfile
     ports:
       - "8083:80"
     environment:
