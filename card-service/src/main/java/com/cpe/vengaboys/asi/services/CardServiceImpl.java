@@ -3,8 +3,8 @@ package com.cpe.vengaboys.asi.services;
 import com.cpe.vengaboys.asi.models.Card;
 import com.cpe.vengaboys.asi.models.User;
 import com.cpe.vengaboys.asi.repositories.CardRepository;
-import com.cpe.vengaboys.shared.dto.CardDto;
-import com.cpe.vengaboys.shared.service.MapperService;
+import com.cpe.vengaboys.asi.shared.dto.CardDto;
+import com.cpe.vengaboys.asi.shared.service.MapperService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

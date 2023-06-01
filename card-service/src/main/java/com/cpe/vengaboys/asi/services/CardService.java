@@ -1,7 +1,7 @@
 package com.cpe.vengaboys.asi.services;
 
 
-import com.cpe.vengaboys.shared.dto.CardDto;
+import com.cpe.vengaboys.asi.shared.dto.CardDto;
 
 import java.util.List;
 

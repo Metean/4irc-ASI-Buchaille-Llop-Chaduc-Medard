@@ -2,7 +2,7 @@ package com.cpe.vengaboys.asi.controllers;
 
 import com.cpe.vengaboys.asi.annotations.ApiRestController;
 import com.cpe.vengaboys.asi.services.CardService;
-import com.cpe.vengaboys.shared.dto.CardDto;
+import com.cpe.vengaboys.asi.shared.dto.CardDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

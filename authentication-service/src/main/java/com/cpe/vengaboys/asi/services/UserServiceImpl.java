@@ -4,9 +4,9 @@ import com.cpe.vengaboys.asi.exception.LoginException;
 import com.cpe.vengaboys.asi.exception.RegisterException;
 import com.cpe.vengaboys.asi.models.User;
 import com.cpe.vengaboys.asi.repositories.UserRepository;
-import com.cpe.vengaboys.shared.dto.LoginDto;
-import com.cpe.vengaboys.shared.dto.RegisterDto;
-import com.cpe.vengaboys.shared.dto.UserDto;
+import com.cpe.vengaboys.asi.shared.dto.LoginDto;
+import com.cpe.vengaboys.asi.shared.dto.RegisterDto;
+import com.cpe.vengaboys.asi.shared.dto.UserDto;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
