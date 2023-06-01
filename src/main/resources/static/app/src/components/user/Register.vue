@@ -2,15 +2,15 @@
 	<div class="register">
 		<div class="register__form">
 			<b-form @submit="onSubmit">
-				<b-form-group id="username" label="Nom d'utilisateur :">
+				<b-form-group label-for="username" label="Nom d'utilisateur :">
 					<b-form-input id="username" v-model="newUser.username" type="text" placeholder="" required></b-form-input>
 				</b-form-group>
 
-				<b-form-group id="mail" label="Adresse mail :">
+				<b-form-group label-for="mail" label="Adresse mail :">
 					<b-form-input id="mail" v-model="newUser.email" type="email" placeholder="" required></b-form-input>
 				</b-form-group>
 
-				<b-form-group id="password" label="Mot de passe :">
+				<b-form-group label-for="password" label="Mot de passe :">
 					<b-form-input id="password" v-model="newUser.password" type="password" placeholder="" required></b-form-input>
 				</b-form-group>
 
@@ -37,7 +37,7 @@ import { useToast } from 'vue-toastification'
 })
 export default class Register extends Vue {
 	msg!: string
-	newUser!: UserRegister
+	newUser = new UserRegister()
 	toast = useToast()
 
 	onSubmit(event: any) {
@@ -46,6 +46,8 @@ export default class Register extends Vue {
 			.then((response: User) => {
 				this.toast.success('Utilisateur inscrit!')
 				console.log(response)
+				localStorage.setItem('user', response.toString())
+				this.$router.push('/')
 			})
 			.catch((error) => {
 				this.toast.error("Impossible d'inscrire l'utilisateur")

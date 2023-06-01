@@ -2,9 +2,19 @@
 	<div>HOME</div>
 	{{ msg }}
 
-	<button @click="$router.push('/buy')">Acheter</button>
-	<button @click="$router.push('/sell')">Vendre</button>
-	<button @click="$router.push('/play')">Jouer</button>
+	<div class="home__cards">
+		<b-card img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article" style="max-width: 20rem" class="mb-2">
+			<b-button variant="primary" @click="$router.push('/buy')">Acheter une carte</b-button>
+		</b-card>
+
+		<b-card img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article" style="max-width: 20rem" class="mb-2">
+			<b-button variant="primary" @click="$router.push('/sell')">Vendre une carte</b-button>
+		</b-card>
+
+		<b-card img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top tag="article" style="max-width: 20rem" class="mb-2">
+			<b-button variant="primary" @click="$router.push('/play')">Lancer une partie</b-button>
+		</b-card>
+	</div>
 </template>
 
 <script lang="ts">
@@ -25,6 +35,9 @@ export default class Home extends Vue {
 
 	mounted() {
 		this.test()
+
+		const user = localStorage.getItem('user')
+		if (!user) this.$router.push('/login')
 	}
 
 	public async test(): Promise<void> {
@@ -40,4 +53,14 @@ export default class Home extends Vue {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.home {
+	&__cards {
+		width: 100%;
+		display: flex;
+		column-gap: 32px;
+		align-items: center;
+		justify-content: center;
+	}
+}
+</style>

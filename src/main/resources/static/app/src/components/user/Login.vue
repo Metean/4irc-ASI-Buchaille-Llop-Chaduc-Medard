@@ -14,6 +14,11 @@
 			</b-form>
 		</div>
 
+		<div>
+			Pas de
+			<b-link href="/register"></b-link>
+		</div>
+
 		<b-card class="mt-3" header="Form Data Result">
 			<pre class="m-0">{{ user }}</pre>
 		</b-card>
@@ -33,7 +38,7 @@ import { useToast } from 'vue-toastification'
 })
 export default class Login extends Vue {
 	msg!: string
-	user!: UserLogin
+	user = new UserLogin()
 	toast = useToast()
 
 	onSubmit(event: any) {
@@ -42,6 +47,8 @@ export default class Login extends Vue {
 			.then((response: User) => {
 				this.toast.success('Utilisateur connecté!')
 				console.log(response)
+				localStorage.setItem('user', response.toString())
+				this.$router.push('/')
 			})
 			.catch((error) => {
 				this.toast.error("Impossible de connecter l'utilisateur")
