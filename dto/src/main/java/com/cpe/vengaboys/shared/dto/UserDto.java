@@ -1,4 +1,4 @@
-package com.cpe.vengaboys.asi.shared.dto;
+package com.cpe.vengaboys.shared.dto;
 
 public class UserDto {
     private Long id;
