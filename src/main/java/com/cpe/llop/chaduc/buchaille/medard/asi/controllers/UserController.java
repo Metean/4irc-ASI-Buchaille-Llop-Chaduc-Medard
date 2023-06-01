@@ -2,15 +2,9 @@ package com.cpe.llop.chaduc.buchaille.medard.asi.controllers;
 
 import com.cpe.llop.chaduc.buchaille.medard.asi.annotations.ApiRestController;
 import com.cpe.llop.chaduc.buchaille.medard.asi.models.User;
-import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.UserFormDTO;
-import com.cpe.llop.chaduc.buchaille.medard.asi.models.dto.UserMoneyFormDTO;
 import com.cpe.llop.chaduc.buchaille.medard.asi.services.UserService;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import org.slf4j.Logger;
@@ -27,7 +21,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{username}")
-    public User getUser(@RequestParam("username") String username) {
+    public User getUser(@PathVariable String username) {
         return userService.getUser(username);
     }
 
@@ -52,7 +46,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{username}/money")
-    public ResponseEntity<?> getUserMoney(@RequestParam("username") String username) {
+    public ResponseEntity<?> getUserMoney(@PathVariable String username) {
         User u = userService.getUser(username);
         if (u != null)
             return new ResponseEntity<>(u.getMoney(), HttpStatus.OK);
@@ -61,7 +55,7 @@ public class UserController {
     }
 
     @PostMapping("/user/{username}/money/add")
-    public User addUserMoney(@RequestParam("username") String username, @RequestParam("amount") Double amount) {
+    public User addUserMoney(@PathVariable String username, @RequestParam("amount") Double amount) {
         userService.addUserMoney(username, amount);
         return userService.getUser(username);
     }
