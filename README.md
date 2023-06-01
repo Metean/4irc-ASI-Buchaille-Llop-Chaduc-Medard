@@ -46,6 +46,15 @@ Il suffit donc de lancer le docker-compose.
 docker-compose up -d
 ```
 
+Chaque micro-service est accessible depuis le port 80 du
+localhost sur le chemin /api/{service}.
+
+On a donc les routes suivantes:
+ - /api/user
+ - /api/authentication
+ - /api/game
+ - /api/card
+
 ## Documentation
 
 Une documentation Swagger est disponible pour chaque service 
