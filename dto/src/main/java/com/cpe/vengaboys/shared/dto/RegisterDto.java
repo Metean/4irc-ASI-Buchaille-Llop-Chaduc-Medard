@@ -1,9 +1,9 @@
 package com.cpe.vengaboys.shared.dto;
 
 public class RegisterDto {
-    private String username;
-    private String password;
-    private String email;
+    public String username;
+    public String password;
+    public String email;
 
     public RegisterDto() {}
 

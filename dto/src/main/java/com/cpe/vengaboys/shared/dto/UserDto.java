@@ -1,10 +1,12 @@
 package com.cpe.vengaboys.shared.dto;
 
+import java.util.Optional;
+
 public class UserDto {
-    private Long id;
-    private String username;
-    private String email;
-    private Double money;
+    public Long id;
+    public String username;
+    public String email;
+    public Double money;
 
     public UserDto() {}
 
@@ -14,8 +16,4 @@ public class UserDto {
         this.email = email;
         this.money = money;
     }
-    
-    public Long getId() { return id; }
-    public Double getMoney() { return money; }
-    
 }
