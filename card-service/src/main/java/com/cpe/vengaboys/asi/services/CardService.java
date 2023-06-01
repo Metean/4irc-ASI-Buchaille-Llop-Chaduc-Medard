@@ -1,12 +1,13 @@
 package com.cpe.vengaboys.asi.services;
 
-import com.cpe.vengaboys.asi.models.Card;
-import org.springframework.data.domain.Page;
+
+import com.cpe.vengaboys.shared.dto.CardDto;
+
+import java.util.List;
 
 public interface CardService {
-    public Page<Card> getCardList();
-    public Page<Card> getCardList(Integer page, Integer size);
-    public Card getCard(int id);
-    public Card getRandomCard();
-    public Card addCard(float price, String name, String description, String imgUrl, String type1, String type2, int hp, int attack, int defense);
+    public List<CardDto> GetAvailableCards();
+    public CardDto GetCard(Long cardId);
+    public void SellCard(Long cardId, Long userId);
+    public boolean BuyCard(Long cardId, Long userId);
 }

@@ -1,20 +1,11 @@
 package com.cpe.vengaboys.asi.services;
 
 import com.cpe.vengaboys.asi.models.User;
-import com.cpe.vengaboys.asi.models.dto.UserFormDTO;
-import com.cpe.vengaboys.asi.models.dto.UserMoneyFormDTO;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.cpe.vengaboys.asi.shared.dto.*;
+import reactor.core.publisher.Mono;
 
 public interface UserService {
-    public User getUser(@RequestParam("userId") Long userId);
-
-    public User addUser(UserFormDTO userForm);
-
-    public void setUserMoney(UserMoneyFormDTO userMoneyForm);
-
-    public void addUserCard(/*@RequestBody AddUserCardRequest addUserCardRequest*/);
-
-    public void removeUserCard(/*@RequestBody RemoveUserCardRequest removeUserCardRequest*/);
-
-    public User checkUser(UserFormDTO userForm);
+    public UserDto getUser(Long userId);
+    public void setUserMoney(Long userId, Double amount);
 }
