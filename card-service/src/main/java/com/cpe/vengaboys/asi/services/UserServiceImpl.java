@@ -1,65 +1,31 @@
 package com.cpe.vengaboys.asi.services;
 
-import com.cpe.vengaboys.asi.models.User;
-import com.cpe.vengaboys.asi.models.dto.UserFormDTO;
-import com.cpe.vengaboys.asi.models.dto.UserMoneyFormDTO;
-import com.cpe.vengaboys.asi.repositories.UserRepository;
+import com.cpe.vengaboys.asi.shared.dto.UserDto;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Optional;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private final UserRepository userRepository;
+    private final WebClient webClient;
 
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserServiceImpl(WebClient.Builder webClientBuilder){
+        this.webClient = webClientBuilder.baseUrl("http://user-service").build();
     }
 
-    //TODO: report the logic from the user controller here, (with the connection to the database)
     @Override
-    public User getUser(@RequestParam("userId") Long userId) {
-        Optional<User> u = userRepository.findById(userId);
-        return u.orElse(null);
+    public UserDto getUser(Long userId) {
+        return webClient.get()
+                .uri("/users/{userId}", userId)
+                .retrieve()
+                .bodyToMono(UserDto.class)
+                .block();
     }
 
-
-    public User addUser(@RequestBody UserFormDTO userForm) {
-        User u = new User(userForm.getUsername(), userForm.getPassword(), userForm.getEmail());
-        userRepository.save(u);
-        return u;
-    }
-
-    public void setUserMoney(UserMoneyFormDTO userMoneyForm) {
-        User u = this.getUser(userMoneyForm.getUserId());
-        u.setMoney(userMoneyForm.getMoney());
-        userRepository.save(u);
-    }
-
-    public void addUserCard(/*@RequestBody AddUserCardRequest addUserCardRequest*/) {
-
-    }
-
-    public void removeUserCard(/*@RequestBody RemoveUserCardRequest removeUserCardRequest*/) {
-
-    }
-
-    public User checkUser(UserFormDTO userForm) {
-        User u = userRepository.findByUsername(userForm.getUsername());
-        if(u == null) {
-            return null;
-        }
-        if(u.getPassword().equals(userForm.getPassword())) {
-            return u;
-        }
-        return null;
-    }
-
-    public User removeUserCard(Long userId) {
-        User user = userRepository.getReferenceById(userId);
-        userRepository.delete(user);
-        return user;
+    @Override
+    public void setUserMoney(Long userId ,Double amount) {
+        webClient.put()
+                .uri(("/users/{userId}/money"))
+                .bodyValue(amount);
     }
 }

@@ -14,4 +14,8 @@ public class UserDto {
         this.email = email;
         this.money = money;
     }
+    
+    public Long getId() { return id; }
+    public Double getMoney() { return money; }
+    
 }

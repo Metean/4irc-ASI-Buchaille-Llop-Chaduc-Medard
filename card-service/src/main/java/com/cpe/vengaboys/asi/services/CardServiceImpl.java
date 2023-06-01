@@ -1,52 +1,71 @@
 package com.cpe.vengaboys.asi.services;
 
-import java.util.List;
-import java.util.Random;
-
-import com.cpe.vengaboys.asi.importer.PokemonImporter;
 import com.cpe.vengaboys.asi.models.Card;
+import com.cpe.vengaboys.asi.models.User;
 import com.cpe.vengaboys.asi.repositories.CardRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import com.cpe.vengaboys.asi.shared.dto.CardDto;
+import com.cpe.vengaboys.asi.shared.services.MapperService;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CardServiceImpl implements CardService {
-
-    private final Random randomGenerator;
     private final CardRepository cardRepository;
+    private final UserService userService;
+    private final MapperService mapperService;
 
-    public CardServiceImpl(CardRepository cardRepository) {
-        randomGenerator = new Random();
+    public CardServiceImpl(CardRepository cardRepository, UserService userService, MapperService mapperService) {
         this.cardRepository = cardRepository;
-        
-        if(this.cardRepository.findAll().isEmpty())
-            this.cardRepository.saveAll(new PokemonImporter().getPokemonCards());
+        this.userService = userService;
+        this.mapperService = mapperService;
     }
 
-    public Page<Card> getCardList() {
-        return this.cardRepository.findAll(PageRequest.of(0, 100));
+    @Override
+    public List<CardDto> GetAvailableCards() {
+        List<Card> cards = cardRepository.findByUserIsNull();
+        List<CardDto> cardDtos = new ArrayList<>();
+        for(Card card: cards){
+            CardDto dto = new CardDto();
+            mapperService.map(card, dto);
+            cardDtos.add(dto);
+        }
+        return cardDtos;
     }
 
-    public Page<Card> getCardList(Integer page, Integer size) {
-        return this.cardRepository.findAll(PageRequest.of(page, size));
+
+    @Override
+    public CardDto GetCard(Long cardId) {
+        CardDto c = new CardDto();
+        mapperService.map(cardRepository.getReferenceById(cardId), c);
+        return c;
     }
 
-    public Card getCard(int id){
-        return this.cardRepository.findById((long) id).orElse(null);
+    @Override
+    public void SellCard(Long cardId, Long userId) {
+        User u = new User();
+        mapperService.map(userService.getUser(userId), u);
+        Card c = cardRepository.getReferenceById(cardId);
+
+        c.setUser(null);
+        userService.setUserMoney(u.getId(), u.getMoney() + c.getPrice());
+        u.setMoney(u.getMoney() + c.getPrice());
+        cardRepository.save(c);
     }
 
-    public Card getRandomCard(){
-        List<Card> cardList = this.cardRepository.findAll();
-        if(cardList.size() == 0)
-            return null;
-        int index = randomGenerator.nextInt(cardList.size());
-        return cardList.get(index);
-    }
+    @Override
+    public boolean BuyCard(Long cardId, Long userId) {
+        User u = new User();
+        mapperService.map(userService.getUser(userId), u);
+        Card c = cardRepository.getReferenceById(cardId);
 
-    public Card addCard(float price, String name, String description, String imgUrl, String type1,
-                        String type2, int hp, int attack, int defense) {
-        Card c = new Card(price, name, description, imgUrl, type1, type2, hp, attack, defense);
-        return this.cardRepository.save(c);
+        if(u.getMoney() < c.getPrice())
+            return false;
+
+        c.setUser(u);
+        userService.setUserMoney(u.getId(), u.getMoney() - c.getPrice());
+        cardRepository.save(c);
+        return true;
     }
 }
