@@ -1,9 +1,8 @@
 package com.cpe.vengaboys.asi.services;
 
-import com.cpe.vengaboys.asi.shared.dto.UserDto;
+import com.cpe.vengaboys.shared.dto.UserDto;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 @Service
 public class UserServiceImpl implements UserService {
