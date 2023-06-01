@@ -15,6 +15,7 @@ public class User {
     private String password;
     private String email;
     private Double money;
+    private String token;
 
     public User() {
     }
@@ -64,5 +65,14 @@ public class User {
 
     public void setMoney(Double money) {
         this.money = money;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public String generateToken() {
+        this.token = java.util.UUID.randomUUID().toString();
+        return this.token;
     }
 }

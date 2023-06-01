@@ -1,12 +1,13 @@
 package com.cpe.vengaboys.asi.services;
 
+import com.cpe.vengaboys.asi.exception.LoginException;
+import com.cpe.vengaboys.asi.exception.RegisterException;
 import com.cpe.vengaboys.asi.models.User;
-import com.cpe.vengaboys.asi.models.dto.UserFormDTO;
-import com.cpe.vengaboys.asi.models.dto.UserMoneyFormDTO;
 import com.cpe.vengaboys.asi.repositories.UserRepository;
+import com.cpe.vengaboys.shared.dto.LoginDto;
+import com.cpe.vengaboys.shared.dto.RegisterDto;
+import com.cpe.vengaboys.shared.dto.UserDto;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
@@ -18,48 +19,65 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-    //TODO: report the logic from the user controller here, (with the connection to the database)
-    @Override
-    public User getUser(@RequestParam("userId") Long userId) {
-        Optional<User> u = userRepository.findById(userId);
-        return u.orElse(null);
-    }
-
-
-    public User addUser(@RequestBody UserFormDTO userForm) {
-        User u = new User(userForm.getUsername(), userForm.getPassword(), userForm.getEmail());
+    public User addUser(RegisterDto registerDto) {
+        User u = new User(registerDto.username, registerDto.password, registerDto.email);
         userRepository.save(u);
         return u;
     }
 
-    public void setUserMoney(UserMoneyFormDTO userMoneyForm) {
-        User u = this.getUser(userMoneyForm.getUserId());
-        u.setMoney(userMoneyForm.getMoney());
-        userRepository.save(u);
+    public User getUser(Long userId) {
+        Optional<User> u = userRepository.findById(userId);
+        return u.orElse(null);
     }
 
-    public void addUserCard(/*@RequestBody AddUserCardRequest addUserCardRequest*/) {
-
+    public User getUser(String username) {
+        Optional<User> u = userRepository.findByUsername(username);
+        return u.orElse(null);
     }
 
-    public void removeUserCard(/*@RequestBody RemoveUserCardRequest removeUserCardRequest*/) {
-
+    public User updateUser(Long userId, UserDto userForm) {
+        User user = this.getUser(userId);
+        user.setUsername(userForm.username);
+        // user.setPassword(userForm.password);
+        user.setEmail(userForm.email);
+        return userRepository.save(user);
     }
 
-    public User checkUser(UserFormDTO userForm) {
-        User u = userRepository.findByUsername(userForm.getUsername());
-        if(u == null) {
-            return null;
+    public boolean deleteUser(Long userId) {
+        userRepository.deleteById(userId);
+        return this.getUser(userId) == null;
+    }
+
+    public Boolean authenticate(String token) {
+        User user = this.getUser(token);
+        return user != null;
+    }
+
+    private String generateToken(User user) {
+        user.generateToken();
+        userRepository.save(user);
+        return user.getToken();
+    }
+
+    @Override
+    public String register(RegisterDto userForm) throws RegisterException {
+        if (this.getUser(userForm.username) != null) {
+            throw new RegisterException();
         }
-        if(u.getPassword().equals(userForm.getPassword())) {
-            return u;
-        }
-        return null;
+
+        User user = this.addUser(userForm);
+        return this.generateToken(user);
     }
 
-    public User removeUserCard(Long userId) {
-        User user = userRepository.getReferenceById(userId);
-        userRepository.delete(user);
-        return user;
+    @Override
+    public String login(LoginDto userForm) throws LoginException {
+        User user = this.getUser(userForm.username);
+        if (user == null) {
+            throw new LoginException();
+        }
+        if (user.getPassword().equals(userForm.password)) {
+            return this.generateToken(user);
+        }
+        throw new LoginException();
     }
 }
